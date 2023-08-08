@@ -1,0 +1,47 @@
+.heroCircleGradient::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    -webkit-mask: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff)) content-box, -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: add, add;
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: -1;
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0)), to(rgba(255, 255, 255, 0.08)));
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.08) 100%);
+}
+
+.buttonBorderGradient::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    -webkit-mask: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff)) content-box, -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: -1;
+    background: -webkit-gradient(linear, left top, right top, color-stop(0.01%, rgba(229, 156, 255, 0.45)), color-stop(50.01%, rgba(186, 156, 255, 0.45)), to(rgba(156, 178, 255, 0.45)));
+    background: linear-gradient(90deg, rgba(229, 156, 255, 0.45) 0.01%, rgba(186, 156, 255, 0.45) 50.01%, rgba(156, 178, 255, 0.45) 100%);
+}
+
+.shadowButton {
+    --tw-shadow: inset 0px -6px 15px rgba(156, 178, 255, 0.25), inset 0px 6px 15px rgba(229, 156, 255, 0.25);
+    --tw-shadow-colored: inset 0px -6px 15px var(--tw-shadow-color), inset 0px 6px 15px var(--tw-shadow-color);
+    -webkit-box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.shadowButton:hover {
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.1)), to(rgba(255, 255, 255, 0)));
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.navbar{
+    z-index: 100;
+    place-content: center;
+}
