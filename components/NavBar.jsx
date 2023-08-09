@@ -43,7 +43,7 @@ const NavBar = () => {
         <li>
           <ul>
             <li>
-            <Link href="/create">Create</Link>
+              <Link href="/create">Create</Link>
             </li>
           </ul>
         </li>
@@ -55,7 +55,6 @@ const NavBar = () => {
             }
             <WalletConnect />
           </div>
-
         </li>
       </ul>
     </nav>
