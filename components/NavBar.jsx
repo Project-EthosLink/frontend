@@ -38,7 +38,14 @@ const NavBar = () => {
     <nav className={` mx-auto px-4 sm:px-8 xl:px-0 lg:flex items-center justify-center fixed left-0 top-0 w-full py-7 ${style.navbar}`} data-testid="navbar">
       <ul className='w-full lg:w-3/4 h-0 lg:h-auto invisible lg:visible lg:flex items-center justify-between text-white'>
         <li>
-          Tokentribe
+          <Link href="/">EthosLink</Link>
+        </li>
+        <li>
+          <ul>
+            <li>
+            <Link href="/create">Create</Link>
+            </li>
+          </ul>
         </li>
         <li>
           <div className=" flex gap-3">

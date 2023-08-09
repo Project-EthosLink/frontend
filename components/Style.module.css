@@ -45,3 +45,10 @@
     z-index: 100;
     place-content: center;
 }
+
+.heroButtonGradient{
+    -webkit-box-shadow: 0px -3px 10px 0px #00000040 inset;
+    box-shadow: 0px -3px 10px 0px #00000040 inset;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(-11.11%, #a073ee), to(#6e25ed));
+    background: linear-gradient(180deg, #a073ee -11.11%, #6e25ed 100%);
+}
