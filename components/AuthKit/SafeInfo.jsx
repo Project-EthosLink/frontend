@@ -20,10 +20,10 @@ import { useAccountAbstraction } from '/store/accountAbstractionContext'
 function SafeInfo({ safeAddress, chainId }) {
   const { web3Provider, chain, safeBalance } = useAccountAbstraction()
 
-  const [isDeployed, setIsDeployed] = useState<boolean>(false)
-  const [isDeployLoading, setIsDeployLoading] = useState<boolean>(true)
+  const [isDeployed, setIsDeployed] = useState < boolean > (false)
+  const [isDeployLoading, setIsDeployLoading] = useState < boolean > (true)
 
-//   const { isDarkTheme } = useTheme()
+  //   const { isDarkTheme } = useTheme()
 
   // detect if the safe is deployed with polling
   const detectSafeIsDeployed = useCallback(async () => {
@@ -55,7 +55,7 @@ function SafeInfo({ safeAddress, chainId }) {
           <Skeleton variant="circular" width={50} height={50} />
         ) : (
           <img
-            src="/safeLogoDark.svg" 
+            src="/safeLogoDark.svg"
             alt="connected Safe account logo"
             height="50px"
           />
@@ -80,17 +80,17 @@ function SafeInfo({ safeAddress, chainId }) {
         {isLoading && <Skeleton variant="text" width={110} height={20} />}
 
         {!isDeployed && !isDeployLoading && (
-          <CreationPendingLabel>
+          <div className='rounded-md py-2'>
             <Tooltip title="This Safe is not deployed yet, it will be deployed when you execute the first transaction">
               <Typography fontWeight="700" fontSize="12px" color="inherit">
                 Creation pending
               </Typography>
             </Tooltip>
-          </CreationPendingLabel>
+          </div>
         )}
 
         {!isLoading && (
-          <AmountContainer>
+          <div className='rounded-md py-2'>
             {/* Safe Balance */}
             <Typography fontWeight="700">
               <AmountLabel
@@ -98,7 +98,7 @@ function SafeInfo({ safeAddress, chainId }) {
                 tokenSymbol={chain?.token || ''}
               />
             </Typography>
-          </AmountContainer>
+          </div>
         )}
       </Stack>
     </Stack>
@@ -107,10 +107,10 @@ function SafeInfo({ safeAddress, chainId }) {
 
 export default SafeInfo
 
-const SafeSettingsLabel = styled('div')<{
+const SafeSettingsLabel = styled('div') < {
   theme: Theme
-}>(
-  ({ theme }) => `
+} > (
+    ({ theme }) => `
   position: absolute;
   top: -6px;
   right: -4px;
@@ -119,29 +119,29 @@ const SafeSettingsLabel = styled('div')<{
   color: ${theme.palette.getContrastText(theme.palette.secondary.light)};
   padding: 5px 6px;
 `
-)
+  )
 
-const CreationPendingLabel = styled('div')<{
+const CreationPendingLabel = styled('div') < {
   theme: Theme
-}>(
-  ({ theme }) => `
+} > (
+    ({ theme }) => `
   border-radius: 4px;
   background-color: ${theme.palette.info.light};
   color: ${theme.palette.getContrastText(theme.palette.secondary.light)}; 
   padding: 0px 10px;
 `
-)
+  )
 
-const AmountContainer = styled('div')<{
+const AmountContainer = styled('div') < {
   theme: Theme
-}>(
-  ({ theme, onClick }) => `
+} > (
+    ({ theme, onClick }) => `
   border-radius: 6px;
   background-color: ${theme.palette.background.light};
   padding: 0px 8px;
   cursor: ${!!onClick ? 'pointer' : 'initial'};
   `
-)
+  )
 
 // TODO: create a util for this?
 const isContractAddress = async (

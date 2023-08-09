@@ -18,7 +18,7 @@ import Layout from '../components/Layout';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import initFontAwesome from '../utils/initFontAwesome';
 import '../styles/globals.css';
-
+import { AccountAbstractionProvider } from '../store/accountAbstractionContext';
 initFontAwesome();
 
 
@@ -79,9 +79,12 @@ export default function App({ Component, pageProps }) {
     <WagmiConfig config={wagmiClient}>
       <RainbowKitProvider chains={chains} theme={midnightTheme()}>
         <UserProvider>
-          <Layout>
+          <AccountAbstractionProvider>
+            <Layout>
             <Component {...pageProps} />
           </Layout>
+          </AccountAbstractionProvider>
+          
         </UserProvider>
       </RainbowKitProvider>
     </WagmiConfig>

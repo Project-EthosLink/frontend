@@ -31,24 +31,12 @@ function ConnectedWalletLabel() {
 
       {/* logout button */}
       <Tooltip title="Logout">
-        <LogoutIconButton onClick={logoutWeb3Auth}>
+        <div className='border-1 border-gray-300' onClick={logoutWeb3Auth}>
           <LogoutIcon fontSize="small" />
-        </LogoutIconButton>
+        </div>
       </Tooltip>
     </Stack>
   )
 }
 
 export default ConnectedWalletLabel
-
-const StyledImg = styled('img')`
-  border-radius: 50%;
-`
-
-const LogoutIconButton = styled(IconButton)<{
-  theme: Theme
-}>(
-  ({ theme }) => `
-  border: 1px solid ${theme.palette.border.main};
-`
-)

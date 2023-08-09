@@ -11,27 +11,7 @@ import Typography from '@mui/material/Typography'
 import ConnectedWalletLabel from './ConnectWalletLabel'
 import SafeInfo from './SafeInfo'
 import { useAccountAbstraction } from '/store/accountAbstractionContext'
-
-const ConnectContainer = styled(Box) < {
-  theme: Theme
-} > (
-    ({ theme }) => `
-  
-  border-radius: 10px;
-  border: 1px solid ${theme.palette.border.light};
-  padding: 50px;
-`
-  )
-
-const CodeContainer = styled(Box) < {
-  theme: Theme
-} > (
-    ({ theme }) => `
-  border-radius: 10px;
-  border: 1px solid ${theme.palette.border.light};
-  padding: 16px;
-`
-  )
+import { useEffect } from 'react'
 
 const ConnectedContainer = styled(Box) < {
   theme: Theme
@@ -47,10 +27,8 @@ const ConnectedContainer = styled(Box) < {
 export default function AuthKit() {
   const { loginWeb3Auth, isAuthenticated, safeSelected, chainId } = useAccountAbstraction()
 
-  console.log(typeof (isAuthenticated))
-
   return (
-    <>
+    <main className='text-white'>
       <Typography variant="h2" component="h1">
         The Auth Kit
       </Typography>
@@ -85,12 +63,11 @@ export default function AuthKit() {
       <Typography variant="h4" component="h2" fontWeight="700" marginBottom="16px">
         Interactive demo
       </Typography>
-
       {isAuthenticated == "true"
         ? (
           <Box display="flex" gap={3}>
 
-            <ConnectedContainer>
+            <div className="px-10 py-8 rounded-xl border-1 border-gray-300">
               <Typography fontWeight="700">Safe Account</Typography>
 
               <Typography fontSize="14px" marginTop="8px" marginBottom="32px">
@@ -99,32 +76,31 @@ export default function AuthKit() {
 
 
               {safeSelected && <SafeInfo safeAddress={safeSelected} chainId={chainId} />}
-            </ConnectedContainer>
+            </div >
 
-          // Owner Id
-            <ConnectedContainer>
+          
+            <div className="px-10 py-8 rounded-xl border-1 border-gray-300">
               <Typography fontWeight="700">Owner ID</Typography>
 
               <Typography fontSize="14px" marginTop="8px" marginBottom="32px">
                 Your Owner account signs transactions to unlock your assets.
               </Typography>
 
-            // Owner details
               <ConnectedWalletLabel />
-            </ConnectedContainer>
+            </div>
           </Box>
-        ) : (
-          <ConnectContainer display="flex" flexDirection="column" alignItems="center" gap={2}>
+        )
+        : (
+          <div className="flex flex-col items-center gap-2 rounded-xl border-1 border-gray-500 p-12" >
             <Typography variant="h4" component="h3" fontWeight="700">
               Create a safe using the Auth Kit
             </Typography>
-
-            <Button variant="contained" onClick={loginWeb3Auth}>
+            <Button variant="contained" onClick={() => loginWeb3Auth()}>
               Connect
             </Button>
-          </ConnectContainer>
-        )}
-
+          </div>
+        )
+      }
       <Divider style={{ margin: '40px 0 30px 0' }} />
 
       <Typography variant="h3" component="h2" fontWeight="700" marginBottom="16px">
@@ -141,6 +117,6 @@ export default function AuthKit() {
           theme={atomOneDark}
         />
       </CodeContainer> */}
-    </>
+    </main>
   )
 }

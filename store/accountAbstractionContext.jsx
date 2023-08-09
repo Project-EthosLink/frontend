@@ -1,8 +1,8 @@
 import AccountAbstraction from '@safe-global/account-abstraction-kit-poc'
 import { Web3AuthModalPack } from '@safe-global/auth-kit'
-// import { StripePack } from '@safe-global/onramp-kit'
-// import { GelatoRelayPack } from '@safe-global/relay-kit'
-// import { MetaTransactionData, MetaTransactionOptions } from '@safe-global/safe-core-sdk-types'
+import { StripePack } from '@safe-global/onramp-kit'
+import { GelatoRelayPack } from '@safe-global/relay-kit'
+import { MetaTransactionData, MetaTransactionOptions } from '@safe-global/safe-core-sdk-types'
 import { ethers, utils } from 'ethers'
 import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
@@ -63,13 +63,13 @@ const useAccountAbstraction = () => {
 
 const AccountAbstractionProvider = ({ children }) => {
   // owner address from the email  (provided by web3Auth)
-  const [ownerAddress, setOwnerAddress] = useState<string>('')
+  const [ownerAddress, setOwnerAddress] = useState('')
 
   // safes owned by the user
   const [safes, setSafes] = useState([])
 
   // chain selected
-  const [chainId, setChainId] = useState<string>(initialChain.id)
+  const [chainId, setChainId] = useState(initialChain.id)
 
   // web3 provider to perform signatures
   const [web3Provider, setWeb3Provider] = useState()
@@ -90,10 +90,11 @@ const AccountAbstractionProvider = ({ children }) => {
   const [web3AuthModalPack, setWeb3AuthModalPack] = useState()
 
   // onRampClient
-//   const [stripePack, setStripePack] = useState<StripePack>()
+  const [stripePack, setStripePack] = useState()
 
   // auth-kit implementation
   const loginWeb3Auth = useCallback(async () => {
+    console.log("logging in...")
     try {
       const options = {
         clientId: process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID || '',
@@ -105,7 +106,7 @@ const AccountAbstractionProvider = ({ children }) => {
         },
         uiConfig: {
           theme: 'dark',
-          loginMethodsOrder: ['google', 'facebook']
+          loginMethodsOrder: ['google','facebook']
         }
       }
 
@@ -179,7 +180,7 @@ const AccountAbstractionProvider = ({ children }) => {
     const getSafeAddress = async () => {
       if (web3Provider) {
         const signer = web3Provider.getSigner()
-        // const relayPack = new GelatoRelayPack()
+        const relayPack = new GelatoRelayPack()
         const safeAccountAbstraction = new AccountAbstraction(signer)
 
         await safeAccountAbstraction.init({ relayPack })
@@ -205,72 +206,72 @@ const AccountAbstractionProvider = ({ children }) => {
   }, [chainId])
 
   // relay-kit implementation using Gelato
-//   const relayTransaction = async () => {
-//     if (web3Provider) {
-//       setIsRelayerLoading(true)
+  const relayTransaction = async () => {
+    if (web3Provider) {
+      setIsRelayerLoading(true)
 
-//       const signer = web3Provider.getSigner()
-//       const relayPack = new GelatoRelayPack()
-//       const safeAccountAbstraction = new AccountAbstraction(signer)
+      const signer = web3Provider.getSigner()
+      const relayPack = new GelatoRelayPack()
+      const safeAccountAbstraction = new AccountAbstraction(signer)
 
-//       await safeAccountAbstraction.init({ relayPack })
+      await safeAccountAbstraction.init({ relayPack })
 
-//       // we use a dump safe transfer as a demo transaction
-//       const dumpSafeTransafer = [
-//         {
-//           to: safeSelected,
-//           data: '0x',
-//           value: utils.parseUnits('0.01', 'ether').toString(),
-//           operation: 0 // OperationType.Call,
-//         }
-//       ]
+      // we use a dump safe transfer as a demo transaction
+      const dumpSafeTransafer = [
+        {
+          to: safeSelected,
+          data: '0x',
+          value: utils.parseUnits('0.01', 'ether').toString(),
+          operation: 0 // OperationType.Call,
+        }
+      ]
 
-//       const options = {
-//         isSponsored: false,
-//         gasLimit: '600000', // in this alfa version we need to manually set the gas limit
-//         gasToken: ethers.constants.AddressZero // native token
-//       }
+      const options = {
+        isSponsored: false,
+        gasLimit: '600000', // in this alfa version we need to manually set the gas limit
+        gasToken: ethers.constants.AddressZero // native token
+      }
 
-//       const gelatoTaskId = await safeAccountAbstraction.relayTransaction(dumpSafeTransafer, options)
+      const gelatoTaskId = await safeAccountAbstraction.relayTransaction(dumpSafeTransafer, options)
 
-//       setIsRelayerLoading(false)
-//       setGelatoTaskId(gelatoTaskId)
-//     }
-//   }
+      setIsRelayerLoading(false)
+      setGelatoTaskId(gelatoTaskId)
+    }
+  }
 
   // onramp-kit implementation
-//   const openStripeWidget = async () => {
-//     const stripePack = new StripePack({
-//       stripePublicKey: process.env.REACT_APP_STRIPE_PUBLIC_KEY || '',
-//       onRampBackendUrl: process.env.REACT_APP_STRIPE_BACKEND_BASE_URL || ''
-//     })
+  const openStripeWidget = async () => {
+    const stripePack = new StripePack({
+      stripePublicKey: process.env.REACT_APP_STRIPE_PUBLIC_KEY || '',
+      onRampBackendUrl: process.env.REACT_APP_STRIPE_BACKEND_BASE_URL || ''
+    })
 
-//     await stripePack.init()
+    await stripePack.init()
 
-//     const sessionData = await stripePack.open({
-//       // sessionId: sessionId, optional parameter
-//       element: '#stripe-root',
-//       defaultOptions: {
-//         transaction_details: {
-//           wallet_address: safeSelected,
-//           supported_destination_networks: ['ethereum', 'polygon'],
-//           supported_destination_currencies: ['usdc'],
-//           lock_wallet_address: true
-//         },
-//         customer_information: {
-//           email: 'john@doe.com'
-//         }
-//       }
-//     })
+    const sessionData = await stripePack.open({
+      // sessionId: sessionId, optional parameter
+      element: '#stripe-root',
+      defaultOptions: {
+        transaction_details: {
+          wallet_address: safeSelected,
+          supported_destination_networks: ['ethereum', 'polygon'],
+          supported_destination_currencies: ['usdc'],
+          lock_wallet_address: true
+        },
+        customer_information: {
+          email: 'john@doe.com'
+        }
+      }
+    })
 
-//     setStripePack(stripePack)
+    setStripePack(stripePack)
 
-//     console.log('Stripe sessionData: ', sessionData)
-//   }
+    console.log('Stripe sessionData: ', sessionData)
+  }
 
-//   const closeStripeWidget = async () => {
-//     stripePack?.close()
-//   }
+  const closeStripeWidget = async () => {
+    stripePack?.close()
+  }
 
   // we can pay Gelato tx relayer fees with native token & USDC
   // TODO: ADD native Safe Balance polling
