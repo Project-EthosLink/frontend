@@ -19,7 +19,7 @@ const Layout = ({ children }) => (
     <main id="app" className=" h-full" data-testid="layout">
       <NavBar />
       {children}
-      <Footer />
+      {/* <Footer /> */}
     </main>
   </>
 );

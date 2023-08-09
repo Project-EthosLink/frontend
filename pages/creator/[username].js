@@ -5,6 +5,7 @@ export default function Index(){
 
     const router = useRouter();
 
+    const username = router.query.username;
 
-    return <Profile />
+    return <Profile username={username} />
 }
