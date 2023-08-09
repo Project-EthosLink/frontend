@@ -3,12 +3,23 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import style from './Style.module.css';
 import Link from 'next/link';
 import WalletConnect from './ConnectWallet';
+import { useAccount } from 'wagmi';
+import { Tooltip } from '@mui/material';
+import { Avatar } from '@mui/material';
 
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, isLoading, error } = useUser();
   const toggle = () => setIsOpen(!isOpen);
+
+  const { address } = useAccount();
+
+  const [ethAccount, setEthAccount] = useState(null);
+
+  useEffect(() => {
+    setEthAccount(address);
+  }, [ethAccount, address]);
 
   console.log(user)
 
@@ -53,7 +64,23 @@ const NavBar = () => {
               ? <Link href="/api/auth/logout" className={`relative rounded-lg text-white text-sm flex items-center gap-1.5 py-2 px-4.5 hover:shadow-none px-4 ${style.buttonBorderGradient} ${style.shadowButton}`}>Sign Out</Link>
               : <Link href="/api/auth/login" className={`relative rounded-lg text-white text-sm flex items-center gap-1.5 py-2 px-4.5 hover:shadow-none px-4 ${style.buttonBorderGradient} ${style.shadowButton}`}>Sign In</Link>
             }
-            <WalletConnect />
+            {ethAccount != null ? (
+              <span>
+                <Link href={`/profile/${ethAccount}`}>
+                  <Tooltip title={ethAccount}>
+                    <Avatar
+                      alt="user"
+                      src={`https://api.dicebear.com/5.x/bottts/svg?seed=${address}`}
+                    />
+                  </Tooltip>
+                </Link>
+              </span>
+            ) : (
+              <span>
+                <WalletConnect />
+              </span>
+            )}
+
           </div>
         </li>
       </ul>

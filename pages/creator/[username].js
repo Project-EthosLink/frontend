@@ -1,4 +1,4 @@
-import Profile from "../../components/Profile/Index";
+import CreatorProfile from "../../components/Creators/Index";
 import { useRouter } from "next/router";
 
 export default function Index(){
@@ -7,5 +7,5 @@ export default function Index(){
 
     const username = router.query.username;
 
-    return <Profile username={username} />
+    return <CreatorProfile username={username} />
 }
