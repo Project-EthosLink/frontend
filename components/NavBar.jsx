@@ -52,9 +52,12 @@ const NavBar = () => {
           <Link href="/">EthosLink</Link>
         </li>
         <li>
-          <ul>
+          <ul className='flex gap-3'>
             <li>
               <Link href="/create">Create</Link>
+            </li>
+            <li>
+              <Link href="/be-a-creator/page">Be a Creator</Link>
             </li>
           </ul>
         </li>
