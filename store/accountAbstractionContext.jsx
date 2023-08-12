@@ -97,16 +97,19 @@ const AccountAbstractionProvider = ({ children }) => {
     console.log("logging in...")
     try {
       const options = {
-        clientId: process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID || '',
+        clientId: process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID,
         web3AuthNetwork: 'testnet',
         chainConfig: {
           chainNamespace: CHAIN_NAMESPACES.EIP155,
           chainId: chain.id,
-          rpcTarget: chain.rpcUrl
+          rpcTarget: chain.rpcUrl,
+          displayName: chain.label,
+          blockExplorer: chain.blockExplorerUrl,
+          ticker: chain.token,
         },
         uiConfig: {
           theme: 'dark',
-          loginMethodsOrder: ['google','facebook']
+          loginMethodsOrder: ['google']
         }
       }
 
@@ -146,6 +149,7 @@ const AccountAbstractionProvider = ({ children }) => {
 
       if (web3AuthModalPack) {
         const { safes, eoa } = await web3AuthModalPack.signIn()
+        const userInfo = await web3AuthModalPack.getUserInfo()
         const provider = web3AuthModalPack.getProvider()
 
         // we set react state with the provided values: owner (eoa address), chain, safes owned & web3 provider
@@ -154,6 +158,8 @@ const AccountAbstractionProvider = ({ children }) => {
         setSafes(safes || [])
         setWeb3Provider(new ethers.providers.Web3Provider(provider))
         setWeb3AuthModalPack(web3AuthModalPack)
+
+        console.log(userInfo)
       }
     } catch (error) {
       console.log('error: ', error)
