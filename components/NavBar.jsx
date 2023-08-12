@@ -6,6 +6,7 @@ import WalletConnect from './ConnectWallet';
 import { useAccount } from 'wagmi';
 import { Tooltip } from '@mui/material';
 import { Avatar } from '@mui/material';
+import { useAccountAbstraction } from "../store/accountAbstractionContext";
 
 
 const NavBar = () => {
@@ -14,14 +15,15 @@ const NavBar = () => {
   const toggle = () => setIsOpen(!isOpen);
 
   const { address } = useAccount();
+  const { loginWeb3Auth, ownerAddress } = useAccountAbstraction()
 
   const [ethAccount, setEthAccount] = useState(null);
 
   useEffect(() => {
-    setEthAccount(address);
-  }, [ethAccount, address]);
+    setEthAccount(ownerAddress);
+  }, [ethAccount, ownerAddress]);
 
-  console.log(user)
+  console.log(ownerAddress)
 
   // useEffect(() => {
 
@@ -67,7 +69,7 @@ const NavBar = () => {
               ? <Link href="/api/auth/logout" className={`relative rounded-lg text-white text-sm flex items-center gap-1.5 py-2 px-4.5 hover:shadow-none px-4 ${style.buttonBorderGradient} ${style.shadowButton}`}>Sign Out</Link>
               : <Link href="/api/auth/login" className={`relative rounded-lg text-white text-sm flex items-center gap-1.5 py-2 px-4.5 hover:shadow-none px-4 ${style.buttonBorderGradient} ${style.shadowButton}`}>Sign In</Link>
             }
-            {ethAccount != null ? (
+            {ethAccount?.length > 0 ? (
               <span>
                 <Link href={`/profile/${ethAccount}`}>
                   <Tooltip title={ethAccount}>
@@ -80,7 +82,7 @@ const NavBar = () => {
               </span>
             ) : (
               <span>
-                <WalletConnect />
+                <button className={`relative rounded-lg text-white text-sm flex items-center gap-1.5 py-2 px-4.5 hover:shadow-none px-4 ${style.buttonBorderGradient} ${style.shadowButton}`} onClick={() => {loginWeb3Auth()}}>Connect Wallet</button>
               </span>
             )}
 

@@ -22,17 +22,17 @@ export default function BeACreator() {
                 </div>
                 <div className="mx-auto max-w-[900px] px-4 sm:px-8 xl:px-0 relative z-1">
                     <div className="text-center">
-                        <a href="/#" className={`${style.heroSubtitleGradient} relative mb-5 font-medium text-sm inline-flex items-center gap-2 py-2 px-4 rounded-full`}>
-                                <span className={`${style.heroSubtitleText}`}>
-                                    Your Ultimate Creative Companion!
-                                </span>
+                        <a href="#" className={`${style.heroSubtitleGradient} relative mb-5 font-medium text-sm inline-flex items-center gap-2 py-2 px-4 rounded-full`}>
+                            <span className={`${style.heroSubtitleText}`}>
+                                Create your space
+                            </span>
                         </a>
                         <h1 className="text-white mb-6 text-3xl font-extrabold sm:text-5xl xl:text-6xl">
-                            Elevate Your Content with Our AI-Powered Writing Tool
+                            Directly reach your fans with {" "}
+                            <span className='bg-gradient-to-r from-[#350f5c] to-[#923ce8] bg-clip-text text-transparent'>EthosLink</span>
                         </h1>
                         <p className="max-w-[500px] mx-auto mb-9 font-medium md:text-lg text-gray-400">
-                            Highly customizable Tailwind CSS template for AI - Tool, Startup, Software, App and Product Sites. Comes
-                            with everything you need - pages, features, sections, components and more that you can easily customize.
+                            Use a suite of publishing tools to share any media directly to your fans. No algorithms. No ads. When you share it, they see it.Offer a paid membership or sell digital products to start earning an income directly from your fans
                         </p>
                         <Link href="/be-a-creator/form" className={`${style.heroButtonGradient} inline-flex rounded-lg py-3 px-7 text-white font-medium ease-in duration-300 hover:opacity-80`}>
                             Get Started

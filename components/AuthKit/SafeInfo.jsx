@@ -20,8 +20,8 @@ import { useAccountAbstraction } from '/store/accountAbstractionContext'
 function SafeInfo({ safeAddress, chainId }) {
   const { web3Provider, chain, safeBalance } = useAccountAbstraction()
 
-  const [isDeployed, setIsDeployed] = useState < boolean > (false)
-  const [isDeployLoading, setIsDeployLoading] = useState < boolean > (true)
+  const [isDeployed, setIsDeployed] = useState (false)
+  const [isDeployLoading, setIsDeployLoading] = useState (true)
 
   //   const { isDarkTheme } = useTheme()
 
@@ -145,7 +145,7 @@ const AmountContainer = styled('div') < {
 
 // TODO: create a util for this?
 const isContractAddress = async (
-  addressn,
+  address,
   provider
 ) => {
   try {

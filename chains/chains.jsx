@@ -59,8 +59,20 @@ export const mumbaiChain = {
   faucetUrl: 'https://mumbaifaucet.com/'
 }
 
-const chains = [gnosisChain, goerliChain, mainnetChain, mumbaiChain, polygonChain]
+export const baseChain = {
+  id: '0x14a33',
+  token: 'ETH',
+  shortName: 'ETH',
+  label: 'Base Goerli',
+  rpcUrl: 'https://goerli.base.org/',
+  blockExplorerUrl: 'https://goerli.basescan.org/',
+  color: '#8248E5',
+  isStripePaymentsEnabled: true,
+  faucetUrl: 'https://mumbaifaucet.com/'
+}
 
-export const initialChain = mumbaiChain
+const chains = [gnosisChain, goerliChain, mainnetChain, mumbaiChain, polygonChain,baseChain]
+
+export const initialChain = baseChain
 
 export default chains

@@ -32,7 +32,7 @@ export default function Create() {
                 </div>
                 <div class="text-center px-4">
                     <h1 class="font-extrabold text-3xl text-white mb-5.5">
-                        Mint your account
+                        Mint your Social Token
                     </h1>
                     {/* <ul class="flex items-center justify-center gap-2">
                         <li class="font-medium"><a href="index.html">Home</a></li>
@@ -42,16 +42,17 @@ export default function Create() {
             </section>
             <section class=" pt-16 pb-16 lg:pb-[100px] xl:pb-[110px]">
                 <div class="max-w-[1170px] mx-auto px-4 sm:px-8 xl:px-0">
-                    <div class="wow fadeInUp rounded-3xl bg-white/[0.05] animated" style={{ visibility: "visible", }}>
+                    <div class="rounded-3xl bg-white/[0.05]" style={{ visibility: "visible", }}>
                         <div class="flex">
                             <div class="hidden lg:block w-full lg:w-1/2">
                                 <div class="relative py-20 pl-[70px] pr-[88px]">
                                     <div class="absolute top-0 right-0 w-[1px] h-full bg-gradient-to-b from-white/0 via-white/20 to-white/0">
                                     </div>
                                     <h2 class="max-w-[292px] font-bold text-white text-heading-4 mb-10">
-                                        Unlock the Power of Writing Tool
+                                        Unlock the Power of Community<br />
+                                        Make your social token
                                     </h2>
-                                    {/* <img src="images/sigin.svg" alt="signin" /> */}
+                                    <img src="https://images.unsplash.com/photo-1499540633125-484965b60031?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80" alt="signin" className=" opacity-50 rounded-md" />
                                 </div>
                             </div>
                             <div class="w-full lg:w-1/2">
