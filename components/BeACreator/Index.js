@@ -4,7 +4,7 @@ import style from '../Style.module.css';
 export default function BeACreator() {
     return (
         <main>
-            <div className="relative overflow-hidden z-10 pt-36 md:pt-40 xl:pt-44 min-h-[85vh]" data-testid="hero">
+            <div className="relative overflow-hidden z-10 pt-36 md:pt-40 xl:pt-44 min-h-[100vh]" data-testid="hero">
                 {/* <Logo testId="hero-logo" /> */}
                 <div className="max-w-7xl mx-auto">
                     <div className=" absolute -z-10 pointer-events-none inset-0 overflow-hidden -mx-28">
@@ -28,7 +28,7 @@ export default function BeACreator() {
                             </span>
                         </a>
                         <h1 className="text-white mb-6 text-3xl font-extrabold sm:text-5xl xl:text-6xl">
-                            Directly reach your fans with {" "}
+                            Get Started with {" "}
                             <span className='bg-gradient-to-r from-[#350f5c] to-[#923ce8] bg-clip-text text-transparent'>EthosLink</span>
                         </h1>
                         <p className="max-w-[500px] mx-auto mb-9 font-medium md:text-lg text-gray-400">

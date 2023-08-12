@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useCallback } from 'react';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import style from './Style.module.css';
 import Link from 'next/link';
@@ -12,6 +12,7 @@ import { useAccountAbstraction } from "../store/accountAbstractionContext";
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, isLoading, error } = useUser();
+  const [scrollY, setScrollY] = useState();
   const toggle = () => setIsOpen(!isOpen);
 
   const { address } = useAccount();
@@ -24,6 +25,23 @@ const NavBar = () => {
   }, [ethAccount, ownerAddress]);
 
   console.log(ownerAddress)
+
+  const onScroll = useCallback(event => {
+    const { pageYOffset, scrollY } = window;
+    console.log("yOffset", pageYOffset, "scrollY", scrollY);
+    setScrollY(window.pageYOffset);
+}, []);
+
+useEffect(() => {
+  //add eventlistener to window
+  window.addEventListener("scroll", onScroll, { passive: true });
+  // remove event on unmount to prevent a memory leak with the cleanup
+  return () => {
+     window.removeEventListener("scroll", onScroll, { passive: true });
+  }
+}, []);
+
+console.log(scrollY)
 
   // useEffect(() => {
 
@@ -48,7 +66,7 @@ const NavBar = () => {
 
 
   return (
-    <nav className={` mx-auto px-4 sm:px-8 xl:px-0 lg:flex items-center justify-center fixed left-0 top-0 w-full py-7 ${style.navbar}`} data-testid="navbar">
+    <nav className={` mx-auto px-4 ${scrollY > 100 ? "bg-[rgba(_3,_0,20,0.7)] backdrop-blur-md shadow " : ""} sm:px-8 xl:px-0 lg:flex items-center justify-center fixed left-0 top-0 w-full py-5 ${style.navbar}`} data-testid="navbar">
       <ul className='w-full lg:w-3/4 h-0 lg:h-auto invisible lg:visible lg:flex items-center justify-between text-white'>
         <li>
           <Link href="/">EthosLink</Link>
@@ -60,6 +78,9 @@ const NavBar = () => {
             </li>
             <li>
               <Link href="/be-a-creator/page">Be a Creator</Link>
+            </li>
+            <li>
+              <Link href="/marketplace">Marketplace</Link>
             </li>
           </ul>
         </li>
