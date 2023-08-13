@@ -49,7 +49,7 @@ const invoices = [
   }
 ];
 
-export default function Marketplace() {
+export default function Marketplace(props) {
   const BuyToken = async () => {
     try {
       const tokenContract = await getContract();
@@ -99,6 +99,8 @@ export default function Marketplace() {
     console.log('New attestation UID:', newAttestationUID);
   };
 
+  console.log(props)
+
   return (
     <main className=" text-white w-4/5 m-auto mt-[100px] text-xl">
       {/* <h1 className="text-white">marketplace</h1> */}
@@ -110,6 +112,8 @@ export default function Marketplace() {
             <TableHead>Creator</TableHead>
             <TableHead>Price by Holder</TableHead>
             <TableHead>Launching price revenue royalty</TableHead>
+            <TableHead className="text-right">Amount</TableHead>
+            <TableHead className="text-right">Amount</TableHead>
             <TableHead className="text-right">Amount</TableHead>
           </TableRow>
         </TableHeader>

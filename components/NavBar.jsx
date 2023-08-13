@@ -68,7 +68,8 @@ console.log(scrollY)
   return (
     <nav className={` mx-auto px-4 ${scrollY > 100 ? "bg-[rgba(_3,_0,20,0.7)] backdrop-blur-md shadow " : ""} sm:px-8 xl:px-0 lg:flex items-center justify-center fixed left-0 top-0 w-full py-5 ${style.navbar}`} data-testid="navbar">
       <ul className='w-full lg:w-3/4 h-0 lg:h-auto invisible lg:visible lg:flex items-center justify-between text-white'>
-        <li>
+        <li className='flex items-center'>
+          <img src="/logo.png" className=' w-10 h-10'></img>
           <Link href="/" className=' text-xl font-semibold'>EthosLink</Link>
         </li>
         <li>
@@ -92,8 +93,8 @@ console.log(scrollY)
         <li>
           <div className=" flex gap-3">
             {user
-              ? <Link href="/api/auth/logout" className={`relative rounded-lg text-white text-sm flex items-center gap-1.5 py-2 px-4.5 hover:shadow-none px-4 ${style.buttonBorderGradient} ${style.shadowButton}`}>WorldId Sign Out</Link>
-              : <Link href="/api/auth/login" className={`relative rounded-lg text-white text-sm flex items-center gap-1.5 py-2 px-4.5 hover:shadow-none px-4 ${style.buttonBorderGradient} ${style.shadowButton}`}>WorldId Sign In</Link>
+              ? <Link href="/api/auth/logout" className={`relative rounded-lg text-white text-sm flex items-center gap-1.5 py-2 px-4.5 hover:shadow-none px-4 ${style.buttonBorderGradient} ${style.shadowButton}`}>WorldID Sign Out</Link>
+              : <Link href="/api/auth/login" className={`relative rounded-lg text-white text-sm flex items-center gap-1.5 py-2 px-4.5 hover:shadow-none px-4 ${style.buttonBorderGradient} ${style.shadowButton}`}>WorldID Sign In</Link>
             }
             {ethAccount?.length > 0 ? (
               <span>
