@@ -1,6 +1,6 @@
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 
-export default function() {
+export default function () {
   const router = useRouter();
   const { id } = router.query;
   return (
