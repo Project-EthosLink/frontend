@@ -1,11 +1,12 @@
 import style from './Style.module.css';
 import { useState } from 'react';
-import { ethers } from 'ethers';
-import { getContract } from '../utils/constants/getContracts';
+import Checkbox from '@mui/material/Checkbox';
 
 export default function Create() {
   const [allfile, setAllfile] = useState({});
   console.log(allfile);
+  const [isTransferrable, setIsTransferrable] = useState(true)
+  console.log(isTransferrable)
 
   function uploadFile() {
     document.getElementById('ipfs_file').click();
@@ -71,33 +72,6 @@ export default function Create() {
               <div class="w-full lg:w-1/2">
                 <div class="py-8 sm:py-20 pl-8 sm:pl-[84px] pr-8 sm:pr-20">
                   <form>
-                    {/* <button class="w-full flex items-center justify-center gap-3 p-3.5 font-medium text-white rounded-lg border border-white/[0.12] ease-in duration-300 hover:border-purple" fdprocessedid="3ann6e">
-                                            <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <g clip-path="url(#clip0_132_14584)">
-                                                    <path d="M22.5001 11.2438C22.5134 10.4876 22.4338 9.73256 22.2629 8.995H11.7246V13.0771H17.9105C17.7933 13.7929 17.5296 14.478 17.1352 15.0914C16.7409 15.7047 16.224 16.2335 15.6158 16.646L15.5942 16.7827L18.9264 19.3124L19.1571 19.335C21.2772 17.4161 22.4997 14.5926 22.4997 11.2438" fill="#4285F4"></path>
-                                                    <path d="M11.7245 22C14.755 22 17.2992 21.0221 19.1577 19.3355L15.6156 16.6464C14.6679 17.2944 13.3958 17.7467 11.7245 17.7467C10.3051 17.7385 8.92433 17.2926 7.77814 16.472C6.63195 15.6515 5.77851 14.4981 5.33892 13.1755L5.20737 13.1865L1.74255 15.8142L1.69727 15.9376C2.63043 17.7602 4.06252 19.2925 5.83341 20.3631C7.60429 21.4337 9.64416 22.0005 11.7249 22" fill="#34A853"></path>
-                                                    <path d="M5.33889 13.1755C5.09338 12.4753 4.96669 11.7404 4.96388 11C4.9684 10.2608 5.09041 9.52685 5.32552 8.8245L5.31927 8.67868L1.81196 6.00867L1.69724 6.06214C0.910039 7.5938 0.5 9.28491 0.5 10.9999C0.5 12.7148 0.910039 14.406 1.69724 15.9376L5.33889 13.1755Z" fill="#FBBC05"></path>
-                                                    <path d="M11.7249 4.25337C13.3333 4.22889 14.8888 4.8159 16.065 5.89121L19.2329 2.86003C17.2011 0.992106 14.5106 -0.0328008 11.7249 3.27798e-05C9.64418 -0.000452376 7.60433 0.566279 5.83345 1.63686C4.06256 2.70743 2.63046 4.23965 1.69727 6.06218L5.32684 8.82455C5.77077 7.50213 6.62703 6.34962 7.77491 5.5295C8.9228 4.70938 10.3044 4.26302 11.7249 4.25337Z" fill="#EB4335"></path>
-                                                </g>
-                                                <defs>
-                                                    <clipPath id="clip0_132_14584">
-                                                        <rect width="22" height="22" fill="white" transform="translate(0.5)"></rect>
-                                                    </clipPath>
-                                                </defs>
-                                            </svg>
-                                            Sign in with Google
-                                        </button>
-                                        <button class="mt-4 w-full flex items-center justify-center gap-3 p-3.5 font-medium text-white rounded-lg border border-white/[0.12] ease-in duration-300 hover:border-purple" fdprocessedid="gxym5">
-                                            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M19.1223 7.66195C18.9986 7.75638 16.816 8.9673 16.816 11.6599C16.816 14.7743 19.5933 15.8761 19.6764 15.9034C19.6636 15.9706 19.2352 17.4124 18.2121 18.8814C17.2999 20.1742 16.3471 21.4649 14.8977 21.4649C13.4483 21.4649 13.0753 20.6359 11.4021 20.6359C9.77152 20.6359 9.19179 21.4922 7.86601 21.4922C6.54024 21.4922 5.61517 20.2959 4.55157 18.8269C3.31961 17.1018 2.32422 14.4218 2.32422 11.8782C2.32422 7.79838 5.01839 5.63461 7.6699 5.63461C9.0788 5.63461 10.2533 6.54545 11.1378 6.54545C11.9797 6.54545 13.2927 5.58006 14.8956 5.58006C15.503 5.58006 17.6856 5.63461 19.1223 7.66195ZM14.1346 3.85285C14.7975 3.07844 15.2664 2.00392 15.2664 0.929401C15.2664 0.780396 15.2536 0.629294 15.2259 0.507568C14.1474 0.547443 12.8643 1.21482 12.0906 2.09836C11.4831 2.77833 10.9161 3.85285 10.9161 4.94206C10.9161 5.10579 10.9438 5.26945 10.9566 5.3219C11.0248 5.33452 11.1357 5.3492 11.2465 5.3492C12.2142 5.3492 13.4313 4.7112 14.1346 3.85285Z" fill="white"></path>
-                                            </svg>
-                                            Sign in with Apple
-                                        </button>
-                                        <span class="relative block font-medium text-sm text-center my-7.5">
-                                            <span class="block absolute left-0 top-1/2 h-[1px] w-22.5 bg-white/[0.12]"></span>
-                                            <span class="block absolute right-0 top-1/2 h-[1px] w-22.5 bg-white/[0.12]"></span>
-                                            Or sign up with email
-                                        </span> */}
                     <div class="mb-4 relative">
                       <span class="absolute top-1/2 -translate-y-1/2 left-6">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -111,7 +85,7 @@ export default function Create() {
                       </span>
                       <input
                         type="name"
-                        placeholder="Edition Name"
+                        placeholder="Edition Name*"
                         class="w-full border border-white/[0.12] bg-transparent rounded-lg focus:border-purple pl-14 pr-4 py-3.5 font-medium outline-none focus-visible:shadow-none text-gray-200"
                         fdprocessedid="nnyzv"
                       />
@@ -126,7 +100,7 @@ export default function Create() {
                       </span>
                       <input
                         type="text"
-                        placeholder="Amount"
+                        placeholder="Amount*"
                         class="w-full border border-white/[0.12] bg-transparent rounded-lg focus:border-purple pl-14 pr-4 py-3.5 font-medium outline-none focus-visible:shadow-none text-gray-200"
                         fdprocessedid="y6prfd"
                       />
@@ -151,7 +125,7 @@ export default function Create() {
                       </span>
                       <input
                         type="text"
-                        placeholder="Revenue royalty percentage"
+                        placeholder="Revenue royalty percentage*"
                         class="w-full border border-white/[0.12] bg-transparent rounded-lg focus:border-purple pl-14 pr-4 py-3.5 font-medium outline-none focus-visible:shadow-none text-gray-200"
                         fdprocessedid="ghc7l5"
                       />
@@ -175,14 +149,18 @@ export default function Create() {
                       <button
                         type="button"
                         onClick={uploadFile}
-                        class="w-full border border-white/[0.12] bg-transparent rounded-lg focus:border-purple pl-14 pr-4 py-3.5 font-medium outline-none focus-visible:shadow-none text-white"
+                        class="w-full border border-white/[0.12] bg-transparent rounded-lg focus:border-purple pl-14 pr-4 py-3.5 font-medium outline-none focus-visible:shadow-none text-gray-400"
                         fdprocessedid="y6prfd">
-                        Upload logo
+                        Upload logo*
                       </button>
                     </div>
                     {allfile.length > 0 && (
                       <div className="text-sm text-gray-400 mb-4 font-semibold">{allfile[0].name} files choosen</div>
                     )}
+                    <div className='relative mb-2'>
+                      <Checkbox onChange={(e) => setIsTransferrable(e.target.checked)} defaultChecked />
+                      <span className='text-gray-400'>is the token transferrable*</span>
+                    </div>
                     <button
                       onClick={e => mint(e)}
                       class={`${style.heroButtonGradient} flex justify-center w-full rounded-lg py-3 px-7 text-white font-medium ease-in duration-300 hover:opacity-80`}

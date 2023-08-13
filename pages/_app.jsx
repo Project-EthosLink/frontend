@@ -84,7 +84,6 @@ export default function App({ Component, pageProps }) {
             <Component {...pageProps} />
           </Layout>
           </AccountAbstractionProvider>
-          
         </UserProvider>
       </RainbowKitProvider>
     </WagmiConfig>
