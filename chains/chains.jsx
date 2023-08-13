@@ -56,7 +56,8 @@ export const mumbaiChain = {
   blockExplorerUrl: 'https://mumbai.polygonscan.com',
   color: '#8248E5',
   isStripePaymentsEnabled: true,
-  faucetUrl: 'https://mumbaifaucet.com/'
+  faucetUrl: 'https://mumbaifaucet.com/',
+  transactionServiceUrl: 'https://safe-transaction-polygon.safe.global',
 }
 
 export const baseChain = {
@@ -68,7 +69,8 @@ export const baseChain = {
   blockExplorerUrl: 'https://goerli.basescan.org/',
   color: '#8248E5',
   isStripePaymentsEnabled: true,
-  faucetUrl: 'https://mumbaifaucet.com/'
+  faucetUrl: 'https://mumbaifaucet.com/',
+  transactionServiceUrl: 'https://safe-transaction-mainnet.safe.global',
 }
 
 const chains = [gnosisChain, goerliChain, mainnetChain, mumbaiChain, polygonChain,baseChain]

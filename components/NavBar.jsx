@@ -69,18 +69,20 @@ console.log(scrollY)
     <nav className={` mx-auto px-4 ${scrollY > 100 ? "bg-[rgba(_3,_0,20,0.7)] backdrop-blur-md shadow " : ""} sm:px-8 xl:px-0 lg:flex items-center justify-center fixed left-0 top-0 w-full py-5 ${style.navbar}`} data-testid="navbar">
       <ul className='w-full lg:w-3/4 h-0 lg:h-auto invisible lg:visible lg:flex items-center justify-between text-white'>
         <li>
-          <Link href="/">EthosLink</Link>
+          <Link href="/" className=' text-xl font-semibold'>EthosLink</Link>
         </li>
         <li>
           <ul className='flex gap-3'>
+            {ethAccount?.length > 0 && 
+             <li>
+              <Link href="/create" className='text-gray-400 hover:text-white transition-colors ease-in-out'>Create</Link>
+            </li>
+            }
             <li>
-              <Link href="/create">Create</Link>
+              <Link href="/be-a-creator/page" className='text-gray-400 hover:text-white transition-colors ease-in-out'>Be a Creator</Link>
             </li>
             <li>
-              <Link href="/be-a-creator/page">Be a Creator</Link>
-            </li>
-            <li>
-              <Link href="/marketplace">Marketplace</Link>
+              <Link href="/marketplace" className='text-gray-400 hover:text-white transition-colors ease-in-out'>Marketplace</Link>
             </li>
           </ul>
         </li>

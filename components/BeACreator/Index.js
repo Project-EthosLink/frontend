@@ -28,7 +28,7 @@ export default function BeACreator() {
                             </span>
                         </a>
                         <h1 className="text-white mb-6 text-3xl font-extrabold sm:text-5xl xl:text-6xl">
-                            Get Started with {" "}
+                            Get Started by building your profile on {" "}
                             <span className='bg-gradient-to-r from-[#350f5c] to-[#923ce8] bg-clip-text text-transparent'>EthosLink</span>
                         </h1>
                         <p className="max-w-[500px] mx-auto mb-9 font-medium md:text-lg text-gray-400">
