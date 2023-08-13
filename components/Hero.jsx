@@ -52,9 +52,7 @@ const Hero = () => (
               Key Features of Our Tool
             </h2>
             <p class="max-w-[714px] mx-auto mb-5 font-medium text-gray-500">
-              Our AI writing tool is designed to empower you with exceptional
-              writing capabilities, making the writing process more efficient,
-              accurate, and enjoyable.
+              Our tool is designed to help you reach your audience faster and more effectively.
             </p>
           </div>
           <div class="relative">
@@ -68,15 +66,14 @@ const Hero = () => (
               <div class="w-full sm:w-1/2 lg:w-1/3">
                 <div class="group relative overflow-hidden text-center py-8 sm:py-10 xl:py-15 px-4 lg:px-8 xl:px-13">
                   <span class={`group-hover:opacity-100 opacity-0 ${style.featuresBg} absolute w-full h-full left-0 top-0 -z-1`}></span>
-                  <span class={`${style.iconBorder} relative max-w-[80px] w-full h-20 rounded-full inline-flex items-center justify-center mb-8 mx-auto`}>
+                  {/* <span class={`${style.iconBorder} relative max-w-[80px] w-full h-20 rounded-full inline-flex items-center justify-center mb-8 mx-auto`}>
                     <img src="images/icon-01.svg" alt="icon" />
-                  </span>
+                  </span> */}
                   <h4 class="font-semibold text-lg text-white mb-4">
-                    Intelligent Writing Assistance
+                    Token Gating platform
                   </h4>
                   <p class="font-medium text-gray-500">
-                    Our AI writing tool analyzes your content, suggests
-                    improvements,
+                    Only the one who have your token can enjoy the perk
                   </p>
                 </div>
               </div>
@@ -84,14 +81,14 @@ const Hero = () => (
               <div class="w-full sm:w-1/2 lg:w-1/3">
                 <div class="group relative overflow-hidden text-center py-8 sm:py-10 xl:py-15 px-4 lg:px-8 xl:px-13">
                   <span class={`group-hover:opacity-100 opacity-0 ${style.featuresBg} absolute w-full h-full left-0 top-0 -z-1`}></span>
-                  <span class={`${style.iconBorder} relative max-w-[80px] w-full h-20 rounded-full inline-flex items-center justify-center mb-8 mx-auto`}>
+                  {/* <span class={`${style.iconBorder} relative max-w-[80px] w-full h-20 rounded-full inline-flex items-center justify-center mb-8 mx-auto`}>
                     <img src="images/icon-02.svg" alt="icon" />
-                  </span>
+                  </span> */}
                   <h4 class="font-semibold text-lg text-white mb-4">
-                    Grammar and Spell Check
+                   Support Creator
                   </h4>
                   <p class="font-medium text-gray-500">
-                    Say goodbye to embarrassing typos and grammar mistakes
+                    user can check creators in explore page and support them
                   </p>
                 </div>
               </div>
@@ -99,15 +96,14 @@ const Hero = () => (
               <div class="w-full sm:w-1/2 lg:w-1/3">
                 <div class="group relative overflow-hidden text-center py-8 sm:py-10 xl:py-15 px-4 lg:px-8 xl:px-13">
                   <span class={`group-hover:opacity-100 opacity-0 ${style.featuresBg} absolute w-full h-full left-0 top-0 -z-1`}></span>
-                  <span class={`${style.iconBorder} relative max-w-[80px] w-full h-20 rounded-full inline-flex items-center justify-center mb-8 mx-auto`}>
+                  {/* <span class={`${style.iconBorder} relative max-w-[80px] w-full h-20 rounded-full inline-flex items-center justify-center mb-8 mx-auto`}>
                     <img src="images/icon-03.svg" alt="icon" />
-                  </span>
+                  </span> */}
                   <h4 class="font-semibold text-lg text-white mb-4">
-                    Plagiarism Detection
+                    Personhood verification
                   </h4>
                   <p class="font-medium text-gray-500">
-                    Originality is key, and our AI writing tool helps you
-                    maintain it
+                    When a creator onboard on our platform we ensure he is a genuine person
                   </p>
                 </div>
               </div>
@@ -119,15 +115,14 @@ const Hero = () => (
               <div class="w-full sm:w-1/2 lg:w-1/3">
                 <div class="group relative overflow-hidden text-center py-8 sm:py-10 xl:py-15 px-4 lg:px-8 xl:px-13">
                   <span class={`group-hover:opacity-100 opacity-0 ${style.featuresBg} absolute w-full h-full left-0 top-0 -z-1 rotate-180`}></span>
-                  <span class={`${style.iconBorder} relative max-w-[80px] w-full h-20 rounded-full inline-flex items-center justify-center mb-8 mx-auto`}>
+                  {/* <span class={`${style.iconBorder} relative max-w-[80px] w-full h-20 rounded-full inline-flex items-center justify-center mb-8 mx-auto`}>
                     <img src="images/icon-04.svg" alt="icon" />
-                  </span>
+                  </span> */}
                   <h4 class="font-semibold text-lg text-white mb-4">
-                    Voice to Text Conversion
+                    Marketplace
                   </h4>
                   <p class="font-medium text-gray-500">
-                    Transform your spoken words into written text easily &amp;
-                    effortlessly
+                    User can buy and sell their token on our platform
                   </p>
                 </div>
               </div>
@@ -135,15 +130,14 @@ const Hero = () => (
               <div class="w-full sm:w-1/2 lg:w-1/3">
                 <div class="group relative overflow-hidden text-center py-8 sm:py-10 xl:py-15 px-4 lg:px-8 xl:px-13">
                   <span class={`group-hover:opacity-100 opacity-0 ${style.featuresBg} absolute w-full h-full left-0 top-0 -z-1 rotate-180`}></span>
-                  <span class={`${style.iconBorder} relative max-w-[80px] w-full h-20 rounded-full inline-flex items-center justify-center mb-8 mx-auto`}>
+                  {/* <span class={`${style.iconBorder} relative max-w-[80px] w-full h-20 rounded-full inline-flex items-center justify-center mb-8 mx-auto`}>
                     <img src="images/icon-05.svg" alt="icon" />
-                  </span>
+                  </span> */}
                   <h4 class="font-semibold text-lg text-white mb-4">
-                    Style and Tone Adaptation
+                    Earn with your audience
                   </h4>
                   <p class="font-medium text-gray-500">
-                    Whether you need a professional, or positive tone it has
-                    everyone
+                    Creator can create social token which help him financially and help grow his audience
                   </p>
                 </div>
               </div>
@@ -151,14 +145,14 @@ const Hero = () => (
               <div class="w-full sm:w-1/2 lg:w-1/3">
                 <div class="group relative overflow-hidden text-center py-8 sm:py-10 xl:py-15 px-4 lg:px-8 xl:px-13">
                   <span class={`group-hover:opacity-100 opacity-0 ${style.featuresBg} absolute w-full h-full left-0 top-0 -z-1 rotate-180`}></span>
-                  <span class={`${style.iconBorder} relative max-w-[80px] w-full h-20 rounded-full inline-flex items-center justify-center mb-8 mx-auto`}>
+                  {/* <span class={`${style.iconBorder} relative max-w-[80px] w-full h-20 rounded-full inline-flex items-center justify-center mb-8 mx-auto`}>
                     <img src="images/icon-06.svg" alt="icon" />
-                  </span>
+                  </span> */}
                   <h4 class="font-semibold text-lg text-white mb-4">
-                    Content Generation
+                  Grow Your business
                   </h4>
                   <p class="font-medium text-gray-500">
-                    Need inspiration or assistance with generating content?
+                    With help of social token you financially aid create your content
                   </p>
                 </div>
               </div>
