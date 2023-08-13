@@ -6,6 +6,29 @@ import AttestModal from './AttestModal';
 import { useAccountAbstraction } from '../../store/accountAbstractionContext';
 
 export const AttestonCreator = async () => {
+  useEffect(() => {
+    axios({
+      url: 'https://base-goerli.easscan.org/graphql',
+      method: 'post',
+      data: {
+        query: `
+      query AggregateAttestation {
+  aggregateAttestation(where: {
+    schemaId: {
+      equals: "0x45fa4b5a5c173af72329ac4dbaa243812872add36d3a806992c7cc7511c3d151"
+    }
+  }) {
+    _count {
+      _all
+    }
+  }
+}
+      `
+      }
+    }).then(result => {
+      console.log(result.data);
+    });
+  }, []);
   const getProvider = async signer => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     await provider.send('eth_requestAccounts', []);
@@ -52,8 +75,8 @@ export default function CreatorProfile(props) {
   };
 
   const setAttestOpenHandler = state => {
-    setAttestOpen(state)
-  }
+    setAttestOpen(state);
+  };
 
   const creatorForLoop = useCallback(async () => {
     setLoading(true);
