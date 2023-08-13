@@ -39,6 +39,9 @@ export default function Form() {
         </TabList>
         <TabPanel value={0}>
           <div className="flex flex-col items-center justify-center h-[70vh]">
+            <div className='text-center mb-[30px]'>
+              <strong>Are you a person? Verify</strong>
+            </div>
             {user ? (
               <>
                 <div className={`relative rounded-xl text-white text-lg flex items-center bg-black py-5 px-5`}>
@@ -53,10 +56,9 @@ export default function Form() {
                 Sign In with WorldCoin
               </Link>
             )}
-
             <div className="mt-[120px] text-center">
               <strong>
-                <span className=" underline text-xl">Note:</span> After veriying your World ID, you will be redirected
+                <span className=" underline text-xl">Note:</span> After verifying your World ID, you will be redirected
                 to <span className=" underline text-purple-900">Homepage</span>. So, again You have to come to this page
                 and fill Your Personal details.
                 <br />
