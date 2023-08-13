@@ -84,6 +84,9 @@ console.log(scrollY)
             <li>
               <Link href="/marketplace" className='text-gray-400 hover:text-white transition-colors ease-in-out'>Marketplace</Link>
             </li>
+            <li>
+              <Link href="/explore" className='text-gray-400 hover:text-white transition-colors ease-in-out'>Explore</Link>
+            </li>
           </ul>
         </li>
         <li>
