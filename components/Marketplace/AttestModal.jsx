@@ -1,10 +1,13 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '/components/ui/card';
 import { Button } from '/components/ui/button';
 import { Input } from "/components/ui/input"
-import { AttestonCreator } from './Index';
+import { AttestToken } from './Index';
 import { useState } from 'react';
 
-export default function AttestModal(props) {
+export default function TokenAttestModal(props) {
+
+    const [message,setMessage] = useState("")
+
     return (
         <>{
             props.open && (
@@ -13,14 +16,14 @@ export default function AttestModal(props) {
                         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                             <Card className="w-[300px]">
                                 <CardHeader>
-                                    <CardTitle>Attestation Feedback</CardTitle>
+                                    <CardTitle>Token Attestation Feedback</CardTitle>
                                     <CardDescription>
-                                        why are you attesting this creator ?
+                                        why are you attesting this token?
                                     </CardDescription>
                                 </CardHeader>
                                 <CardFooter className="flex justify-between flex-col gap-4">
-                                    <textarea type="text" placeholder="" />
-                                    <Button onClick={AttestonCreator}>Attest</Button>
+                                    <textarea type="text" placeholder="" value={message} onChange={(e) => setMessage(e.target.value)} className=' border-2 border-gray-400 w-full rounded'/>
+                                    <Button onClick={() => AttestToken(message)}>Attest</Button>
                                     <Button variant="outline" onClick={() => props.setOpen(false)}>Close</Button>
                                 </CardFooter>
                             </Card>

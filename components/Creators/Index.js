@@ -5,6 +5,16 @@ import { ethers } from 'ethers';
 import AttestModal from './AttestModal';
 
 export const AttestonCreator = async () => {
+  const getProvider = async signer => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send('eth_requestAccounts', []);
+    if (signer) {
+      const signer = provider.getSigner();
+      return signer;
+    }
+    return provider;
+  };
+  
   const EASContractAddress = '0xacfe09fd03f7812f022fbf636700adea18fd2a7a';
   const eas = new EAS(EASContractAddress);
   const signer = await getProvider(true);
