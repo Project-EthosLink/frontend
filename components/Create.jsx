@@ -9,6 +9,7 @@ export default function Create() {
   console.log(allfile);
   const [isTransferrable, setIsTransferrable] = useState(true);
   console.log(isTransferrable);
+  const [tokenGatingURL, setTokenGatingURL] = useState('');
 
   function uploadFile() {
     document.getElementById('ipfs_file').click();
@@ -22,11 +23,15 @@ export default function Create() {
       const resaleRoyalty = e.target.form[2].value;
       const token = await getContract();
       const obj = {
-        name: e.target.form[0].value
+        name: e.target.form[0].value,
+        Beninfit_URl: '',
+        TokenGating_URL: tokenGatingURL
       };
       const URI = await saveMetaData(obj);
       const tx = await token.mintSocialToken(amount, URI, resaleRoyalty, isTransferrable);
       await tx.wait();
+      const currentTokenId = await token.getCurrentTokenId();
+      setTokenGatingURL('/token/' + currentTokenId.toString());
     } catch (err) {
       console.log(err);
     }
