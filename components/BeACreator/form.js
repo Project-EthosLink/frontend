@@ -27,19 +27,23 @@ export default function Form() {
 
   const mintUser = async e => {
     e.preventDefault();
-    const contract = await getContract();
-    const obj = {
-      name: name,
-      location: location,
-      creatorType: creatorType,
-      platforms: platforms,
-      socialLinks: socialLinks,
-      about: about
-    };
-    const URI = await saveMetaData(obj);
-    const tx = await contract.registerCreator(URI);
-    await tx.wait();
-    console.log('Minted');
+    try {
+      const contract = await getContract();
+      const obj = {
+        name: name,
+        location: location,
+        creatorType: creatorType,
+        platforms: platforms,
+        socialLinks: socialLinks,
+        about: about
+      };
+      const URI = await saveMetaData(obj);
+      const tx = await contract.registerCreator(URI);
+      await tx.wait();
+      console.log('Minted');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
