@@ -1,5 +1,7 @@
 import style from './Style.module.css';
 import { useState } from 'react';
+import { ethers } from 'ethers';
+import { getContract } from '../utils/constants/getContracts';
 
 export default function Create() {
   const [allfile, setAllfile] = useState({});
@@ -9,8 +11,19 @@ export default function Create() {
     document.getElementById('ipfs_file').click();
   }
 
-  const mint = e => {
+  const mint = async e => {
     e.preventDefault();
+    try {
+      console.log(e.target.form[0].value);
+      const URI = e.target.form[0].value;
+      const amount = e.target.form[1].value;
+      const resaleRoyalty = e.target.form[2].value;
+      const token = await getContract();
+      const tx = await token.mintSocialToken(amount, URI, resaleRoyalty, true);
+      await tx.wait();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
