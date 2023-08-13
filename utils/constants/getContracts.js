@@ -9,4 +9,4 @@ const getContract = async () => {
   return tokenContract;
 };
 
-module.exports = { getContract };
+export { getContract };
