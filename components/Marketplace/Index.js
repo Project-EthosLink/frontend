@@ -1,5 +1,6 @@
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '/components/ui/table';
 import { getContract } from '../../utils/constants/getContracts';
+import style from "../Style.module.css"
 
 const invoices = [
   {
@@ -80,7 +81,7 @@ export default function Marketplace() {
               <TableCell>{invoice.paymentMethod}</TableCell>
               <TableCell className="text-right">{invoice.totalAmount}</TableCell>
               <TableCell className="text-right">
-                <button onClick={BuyToken}> BUY </button>
+                <button onClick={BuyToken} className={`relative rounded-lg text-white text-sm flex items-center gap-1.5 py-2 px-4.5 hover:shadow-none px-4 ${style.buttonBorderGradient} ${style.shadowButton}`}> BUY </button>
                 </TableCell>
             </TableRow>
           ))}
