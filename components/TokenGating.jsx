@@ -42,7 +42,7 @@ export default function TokenGating({ id ,data, CreatorAddress}) {
     }
   }, [creators]);
 
-  console.log(creatorData[0].socialLinks)
+  console.log(creatorData[0]?.socialLinks)
 
   const router = useRouter();
   console.log(id);
@@ -57,7 +57,7 @@ export default function TokenGating({ id ,data, CreatorAddress}) {
       console.log(Id);
       console.log(ethers.utils.formatEther(tx) > 0);
       if (ethers.utils.formatEther(tx) > 0) {
-        router.push(creatorData[0].socialLinks);
+        router.push(creatorData[0]?.socialLinks);
       } else {
         alert('You are not authorized to view this content');
       }
