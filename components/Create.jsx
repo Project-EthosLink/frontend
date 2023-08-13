@@ -31,6 +31,7 @@ export default function Create() {
       const tx = await token.mintSocialToken(amount, URI, resaleRoyalty, isTransferrable);
       await tx.wait();
       const currentTokenId = await token.getCurrentTokenId();
+      console.log(currentTokenId);
       setTokenGatingURL('/token/4');
     } catch (err) {
       console.log(err);
