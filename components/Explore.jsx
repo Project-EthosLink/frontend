@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useEffect, useCallback, useState } from "react";
 
 export default function Explore(props) {
@@ -18,9 +19,9 @@ export default function Explore(props) {
     
         for (let i = 0; i < creators.length; i++) {
           let obj = {};
-          if (creators[i].URI.length > 8) {
+          if (creators[i].URI.length > 10) {
             const newresponse = await fetch(
-              `https://ipfs.io/ipfs/${socialToken[i].URI}/CreatorData.json`,
+              `https://ipfs.io/ipfs/${creators[i].URI}/CreatorData.json`,
               requestOptions
             );
             const result = await newresponse.json();
@@ -33,24 +34,29 @@ export default function Explore(props) {
         setCreatorData(tempChoicesArray);
       }, [creators, creatorData]);
     
-    //   useEffect(() => {
-    //     if (creators.length > 0) {
-    //       creatorForLoop();
-    //     }
-    //   }, [creators]);
+      useEffect(() => {
+        if (creators.length > 0) {
+          creatorForLoop();
+        }
+      }, [creators]);
+
+      console.log(creatorData)
 
     return (
         <main className="mt-[120px] p-10">
-            <h1 className="text-white text-2xl font-semibold mb-8">Social Token Owned</h1>
+            <h1 className="text-white text-2xl font-semibold mb-8">Creators</h1>
             <div className="flex gap-5">
-                {creators.map((data, index) => {
+                {creatorData.map((data, index) => {
                     return (
-                        <div className="flex flex-col items-center justify-between w-fit">
+                      <Link href={`/creator/${data.CreatorAddress}`}>
+                         <div className="flex flex-col items-center justify-between w-fit">
                             <div className="block bg-gray-900 w-[200px] h-[200px] p-5 rounded-full">
-                                <img src={`https://api.dicebear.com/5.x/bottts/svg?seed=${data.ownerAddress}`} className="w-[150px]" />
+                                <img src={`https://api.dicebear.com/5.x/bottts/svg?seed=${data.CreatorAddress}`} className="w-[150px]" />
                             </div>
-                            <h3 className="text-white text-lg font-semibold mt-3">Token Name</h3>
+                            <h3 className="text-white text-lg font-semibold mt-3">{data.name}</h3>
                         </div>
+                      </Link>
+                       
                     )
                 })}
             </div>
