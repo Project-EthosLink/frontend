@@ -43,20 +43,22 @@ const invoices = [
     paymentStatus: 'Unpaid',
     totalAmount: '$300.00',
     paymentMethod: 'Credit Card'
-  }
+  },
 ];
 
 export default function Marketplace() {
+
   const BuyToken = async () => {
     try {
       const tokenContract = await getContract();
-      console.log('buting token ...');
+      console.log('buying token ...');
       const buyToken = await tokenContract.buySocialToken('1', '1', '0x375118d6461718Eeedb49aec7556C1d32Cb063BF');
       await buyToken.wait();
     } catch (err) {
       console.log(err);
     }
   };
+
   return (
     <main className=" text-white w-4/5 m-auto mt-[100px] text-xl">
       {/* <h1 className="text-white">marketplace</h1> */}
@@ -77,9 +79,9 @@ export default function Marketplace() {
               <TableCell>{invoice.paymentStatus}</TableCell>
               <TableCell>{invoice.paymentMethod}</TableCell>
               <TableCell className="text-right">{invoice.totalAmount}</TableCell>
-              <button onClick={BuyToken}>
-                <TableCell className="text-right"> BUY </TableCell>
-              </button>
+              <TableCell className="text-right">
+                <button onClick={BuyToken}> BUY </button>
+                </TableCell>
             </TableRow>
           ))}
         </TableBody>
