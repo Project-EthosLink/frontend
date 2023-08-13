@@ -89,8 +89,8 @@ console.log(scrollY)
         <li>
           <div className=" flex gap-3">
             {user
-              ? <Link href="/api/auth/logout" className={`relative rounded-lg text-white text-sm flex items-center gap-1.5 py-2 px-4.5 hover:shadow-none px-4 ${style.buttonBorderGradient} ${style.shadowButton}`}>Sign Out</Link>
-              : <Link href="/api/auth/login" className={`relative rounded-lg text-white text-sm flex items-center gap-1.5 py-2 px-4.5 hover:shadow-none px-4 ${style.buttonBorderGradient} ${style.shadowButton}`}>Sign In</Link>
+              ? <Link href="/api/auth/logout" className={`relative rounded-lg text-white text-sm flex items-center gap-1.5 py-2 px-4.5 hover:shadow-none px-4 ${style.buttonBorderGradient} ${style.shadowButton}`}>WorldId Sign Out</Link>
+              : <Link href="/api/auth/login" className={`relative rounded-lg text-white text-sm flex items-center gap-1.5 py-2 px-4.5 hover:shadow-none px-4 ${style.buttonBorderGradient} ${style.shadowButton}`}>WorldId Sign In</Link>
             }
             {ethAccount?.length > 0 ? (
               <span>

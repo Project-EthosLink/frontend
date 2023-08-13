@@ -67,9 +67,10 @@ export default function Marketplace() {
         <TableCaption>A list of listed social token.</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">Invoice</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Method</TableHead>
+            <TableHead className="w-[100px]">Token ID</TableHead>
+            <TableHead>Creator</TableHead>
+            <TableHead>Price by Holder</TableHead>
+            <TableHead>Launching price revenue royalty</TableHead>
             <TableHead className="text-right">Amount</TableHead>
           </TableRow>
         </TableHeader>
@@ -79,6 +80,7 @@ export default function Marketplace() {
               <TableCell className="font-medium">{invoice.invoice}</TableCell>
               <TableCell>{invoice.paymentStatus}</TableCell>
               <TableCell>{invoice.paymentMethod}</TableCell>
+              <TableCell className="text-right">{invoice.totalAmount}</TableCell>
               <TableCell className="text-right">{invoice.totalAmount}</TableCell>
               <TableCell className="text-right">
                 <button onClick={BuyToken} className={`relative rounded-lg text-white text-sm flex items-center gap-1.5 py-2 px-4.5 hover:shadow-none px-4 ${style.buttonBorderGradient} ${style.shadowButton}`}> BUY </button>
