@@ -26,32 +26,32 @@ export default function Marketplace(props) {
   };
 
   const AttestToken = async () => {
-    const EASContractAddress = '0xacfe09fd03f7812f022fbf636700adea18fd2a7a';
-    const eas = new EAS(EASContractAddress);
-    const signer = await getProvider(true);
-    eas.connect(signer);
-    const schemaEncoder = new SchemaEncoder('uint128 Token_ID,address Creator,bool trust,string Comments');
-    const encodedData = schemaEncoder.encodeData([
-      { name: 'Token_ID', value: '2', type: 'uint128' },
-      { name: 'Creator', value: '0x375118d6461718Eeedb49aec7556C1d32Cb063BF', type: 'address' },
-      { name: 'trust', value: 'true', type: 'bool' },
-      { name: 'Comments', value: 'This is a comment', type: 'string' }
-    ]);
-    const schemaUID = '0x8295262c02e62d13c25ad13dd2b4bc11571b5665df5936e6682a5b73a2354082';
+    try {
+      const EASContractAddress = '0xacfe09fd03f7812f022fbf636700adea18fd2a7a';
+      const eas = new EAS(EASContractAddress);
+      const signer = await getProvider(true);
+      eas.connect(signer);
+      const schemaEncoder = new SchemaEncoder('uint128 Token_ID,address Creator,bool trust,string Comments');
+      const encodedData = schemaEncoder.encodeData([
+        { name: 'Token_ID', value: '2', type: 'uint128' },
+        { name: 'Creator', value: '0x375118d6461718Eeedb49aec7556C1d32Cb063BF', type: 'address' },
+        { name: 'trust', value: 'true', type: 'bool' },
+        { name: 'Comments', value: 'This is a comment', type: 'string' }
+      ]);
+      const schemaUID = '0x8295262c02e62d13c25ad13dd2b4bc11571b5665df5936e6682a5b73a2354082';
 
-    const tx = await eas.attest({
-      schema: schemaUID,
-      data: {
-        recipient: '0x375118d6461718Eeedb49aec7556C1d32Cb063BF',
-        expirationTime: 0,
-        revocable: true, // Be aware that if your schema is not revocable, this MUST be false
-        data: encodedData
-      }
-    });
-
-    const newAttestationUID = await tx.wait();
-
-    console.log('New attestation UID:', newAttestationUID);
+      const tx = await eas.attest({
+        schema: schemaUID,
+        data: {
+          recipient: '0x375118d6461718Eeedb49aec7556C1d32Cb063BF',
+          expirationTime: 0,
+          revocable: true, // Be aware that if your schema is not revocable, this MUST be false
+          data: encodedData
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   console.log(props.data.socialTokenHoldings.filter(item => item.AmountListedByHolder > 0));

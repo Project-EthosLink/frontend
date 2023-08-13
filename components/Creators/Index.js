@@ -6,65 +6,44 @@ import AttestModal from './AttestModal';
 import { useAccountAbstraction } from '../../store/accountAbstractionContext';
 
 export const AttestonCreator = async () => {
-  useEffect(() => {
-    axios({
-      url: 'https://base-goerli.easscan.org/graphql',
-      method: 'post',
-      data: {
-        query: `
-      query AggregateAttestation {
-  aggregateAttestation(where: {
-    schemaId: {
-      equals: "0x45fa4b5a5c173af72329ac4dbaa243812872add36d3a806992c7cc7511c3d151"
-    }
-  }) {
-    _count {
-      _all
-    }
-  }
-}
-      `
+  try {
+    const getProvider = async signer => {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      await provider.send('eth_requestAccounts', []);
+      if (signer) {
+        const signer = provider.getSigner();
+        return signer;
       }
-    }).then(result => {
-      console.log(result.data);
+      return provider;
+    };
+
+    const EASContractAddress = '0xacfe09fd03f7812f022fbf636700adea18fd2a7a';
+    const eas = new EAS(EASContractAddress);
+    const signer = await getProvider(true);
+    eas.connect(signer);
+    const schemaEncoder = new SchemaEncoder('bool Trust');
+    const encodedData = schemaEncoder.encodeData([{ name: 'Trust', value: 'true', type: 'bool' }]);
+    const schemaUID = '0x45fa4b5a5c173af72329ac4dbaa243812872add36d3a806992c7cc7511c3d151';
+
+    const tx = await eas.attest({
+      schema: schemaUID,
+      data: {
+        recipient: '0x375118d6461718Eeedb49aec7556C1d32Cb063BF',
+        expirationTime: 0,
+        revocable: true, // Be aware that if your schema is not revocable, this MUST be false
+        data: encodedData
+      }
     });
-  }, []);
-  const getProvider = async signer => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    await provider.send('eth_requestAccounts', []);
-    if (signer) {
-      const signer = provider.getSigner();
-      return signer;
-    }
-    return provider;
-  };
 
-  const EASContractAddress = '0xacfe09fd03f7812f022fbf636700adea18fd2a7a';
-  const eas = new EAS(EASContractAddress);
-  const signer = await getProvider(true);
-  eas.connect(signer);
-  const schemaEncoder = new SchemaEncoder('bool Trust');
-  const encodedData = schemaEncoder.encodeData([{ name: 'Trust', value: 'true', type: 'bool' }]);
-  const schemaUID = '0x45fa4b5a5c173af72329ac4dbaa243812872add36d3a806992c7cc7511c3d151';
-
-  const tx = await eas.attest({
-    schema: schemaUID,
-    data: {
-      recipient: '0x375118d6461718Eeedb49aec7556C1d32Cb063BF',
-      expirationTime: 0,
-      revocable: true, // Be aware that if your schema is not revocable, this MUST be false
-      data: encodedData
-    }
-  });
-
-  const newAttestationUID = await tx.wait();
-
-  console.log('New attestation UID:', newAttestationUID);
+    await tx.wait();
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export default function CreatorProfile(props) {
   const [open, setOpen] = useState(false);
-  const [attestOpen, setAttestOpen] = useState(false)
+  const [attestOpen, setAttestOpen] = useState(false);
   const [creatorData, setCreatorData] = useState([]);
   const [creators, setCreators] = useState(props.data.creators);
   const { ownerAddress } = useAccountAbstraction();
@@ -84,17 +63,14 @@ export default function CreatorProfile(props) {
     const tempChoicesArray = [];
 
     var requestOptions = {
-      method: "GET",
-      redirect: "follow",
+      method: 'GET',
+      redirect: 'follow'
     };
 
     for (let i = 0; i < creators.length; i++) {
       let obj = {};
       if (creators[i].URI.length > 10 && creators[i].CreatorAddress == props.username) {
-        const newresponse = await fetch(
-          `https://ipfs.io/ipfs/${creators[i].URI}/CreatorData.json`,
-          requestOptions
-        );
+        const newresponse = await fetch(`https://ipfs.io/ipfs/${creators[i].URI}/CreatorData.json`, requestOptions);
         const result = await newresponse.json();
         obj = { ...result, ...creators[i] };
         tempChoicesArray.push(obj);
@@ -111,7 +87,7 @@ export default function CreatorProfile(props) {
     }
   }, [creators]);
 
-  console.log(creatorData)
+  console.log(creatorData);
 
   const getProvider = async signer => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -154,7 +130,7 @@ export default function CreatorProfile(props) {
 
   return (
     <main className="profile-page ">
-      {creatorData.map((data) => {
+      {creatorData.map(data => {
         return (
           <>
             <section className="relative block h-[500px]">
@@ -213,16 +189,22 @@ export default function CreatorProfile(props) {
                       <div className="w-full lg:w-4/12 px-4 lg:order-1">
                         <div className="flex justify-center py-4 lg:pt-4 pt-8">
                           <div className="mr-4 p-3 text-center">
-                            <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">22</span>
-                            <span className="text-sm text-blueGray-400">Friends</span>
+                            <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                              22
+                            </span>
+                            <span className="text-sm text-blueGray-400">Trust Index</span>
                           </div>
                           <div className="mr-4 p-3 text-center">
-                            <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">10</span>
-                            <span className="text-sm text-blueGray-400">Photos</span>
+                            <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                              10
+                            </span>
+                            <span className="text-sm text-blueGray-400">Project Index</span>
                           </div>
                           <div className="lg:mr-4 p-3 text-center">
-                            <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">89</span>
-                            <span className="text-sm text-blueGray-400">Comments</span>
+                            <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                              89
+                            </span>
+                            <span className="text-sm text-blueGray-400">Tokens</span>
                           </div>
                         </div>
                       </div>
@@ -234,18 +216,18 @@ export default function CreatorProfile(props) {
                         {data.location}
                       </div>
                       <div className="mb-2 text-blueGray-600 mt-10">
-                        <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>{data.creatorType}
+                        <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
+                        {data.creatorType}
                       </div>
                       <div className="mb-2 text-blueGray-600">
-                        <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>{data.platforms}
+                        <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
+                        {data.platforms}
                       </div>
                     </div>
                     <div className="mt-10 py-10 border-t border-blue-200 text-center">
                       <div className="flex flex-wrap justify-center">
                         <div className="w-full lg:w-9/12 px-4">
-                          <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
-                            {data.about}
-                          </p>
+                          <p className="mb-4 text-lg leading-relaxed text-blueGray-700">{data.about}</p>
                           {/* <a href={`${data.socialLinks}`} className="font-normal text-pink-500">
                             {data.socialLinks}
                           </a> */}
@@ -264,10 +246,15 @@ export default function CreatorProfile(props) {
                 </div>
               </div>
             </section>
-            <BenefitModal open={open} setOpen={setOpenHandler} tokenId={data.tokenId} CreatorAddress={data.CreatorAddress}/>
+            <BenefitModal
+              open={open}
+              setOpen={setOpenHandler}
+              tokenId={data.tokenId}
+              CreatorAddress={data.CreatorAddress}
+            />
             <AttestModal open={attestOpen} setOpen={setAttestOpenHandler} />
           </>
-        )
+        );
       })}
     </main>
   );

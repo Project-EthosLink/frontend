@@ -14,7 +14,7 @@ export async function getServerSideProps(context) {
     body: JSON.stringify({
       query: `
               {
-                socialTokenHoldings {
+                socialTokenHoldings (where: {AmountListedByHolder_gt: 0}){
                     id
                     Creator
                     Holder
