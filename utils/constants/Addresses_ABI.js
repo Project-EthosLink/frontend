@@ -1,4 +1,4 @@
-export const Token_Address = '0x2BE253b8B0B6788BcB68a8d3b470151ed9135af6';
+export const Token_Address = '0x5C0f8b8151823107F498A8bC036292249DA413f3';
 export const Token_ABI = [
   { inputs: [], stateMutability: 'nonpayable', type: 'constructor' },
   {
@@ -60,7 +60,9 @@ export const Token_ABI = [
       { indexed: false, internalType: 'uint256', name: 'id', type: 'uint256' },
       { indexed: false, internalType: 'address', name: 'owner', type: 'address' },
       { indexed: false, internalType: 'uint256', name: 'amount', type: 'uint256' },
-      { indexed: false, internalType: 'uint256', name: 'resaleRoyaltyPercentage', type: 'uint256' }
+      { indexed: false, internalType: 'uint256', name: 'resaleRoyaltyPercentage', type: 'uint256' },
+      { indexed: false, internalType: 'bool', name: 'transferrable', type: 'bool' },
+      { indexed: false, internalType: 'string', name: 'URI', type: 'string' }
     ],
     name: 'SocialTokenMinted',
     type: 'event'
