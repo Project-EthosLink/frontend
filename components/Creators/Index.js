@@ -2,14 +2,9 @@ import { useState } from 'react';
 import BenefitModal from './BenefitModal';
 import { EAS, SchemaEncoder } from '@ethereum-attestation-service/eas-sdk';
 import { ethers } from 'ethers';
+import AttestModal from './AttestModal';
 
-export default function CreatorProfile() {
-  const [open, setOpen] = useState(false);
-
-  const setOpenHandler = state => {
-    setOpen(state);
-  };
-
+export const AttestonCreator = async () => {
   const getProvider = async signer => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     await provider.send('eth_requestAccounts', []);
@@ -19,29 +14,50 @@ export default function CreatorProfile() {
     }
     return provider;
   };
+  
+  const EASContractAddress = '0xacfe09fd03f7812f022fbf636700adea18fd2a7a';
+  const eas = new EAS(EASContractAddress);
+  const signer = await getProvider(true);
+  eas.connect(signer);
+  const schemaEncoder = new SchemaEncoder('bool Trust');
+  const encodedData = schemaEncoder.encodeData([{ name: 'Trust', value: 'true', type: 'bool' }]);
+  const schemaUID = '0x45fa4b5a5c173af72329ac4dbaa243812872add36d3a806992c7cc7511c3d151';
 
-  const AttesstonCreator = async () => {
-    const EASContractAddress = '0xacfe09fd03f7812f022fbf636700adea18fd2a7a';
-    const eas = new EAS(EASContractAddress);
-    const signer = await getProvider(true);
-    eas.connect(signer);
-    const schemaEncoder = new SchemaEncoder('bool Trust');
-    const encodedData = schemaEncoder.encodeData([{ name: 'Trust', value: 'true', type: 'bool' }]);
-    const schemaUID = '0x45fa4b5a5c173af72329ac4dbaa243812872add36d3a806992c7cc7511c3d151';
+  const tx = await eas.attest({
+    schema: schemaUID,
+    data: {
+      recipient: '0x375118d6461718Eeedb49aec7556C1d32Cb063BF',
+      expirationTime: 0,
+      revocable: true, // Be aware that if your schema is not revocable, this MUST be false
+      data: encodedData
+    }
+  });
 
-    const tx = await eas.attest({
-      schema: schemaUID,
-      data: {
-        recipient: '0x375118d6461718Eeedb49aec7556C1d32Cb063BF',
-        expirationTime: 0,
-        revocable: true, // Be aware that if your schema is not revocable, this MUST be false
-        data: encodedData
-      }
-    });
+  const newAttestationUID = await tx.wait();
 
-    const newAttestationUID = await tx.wait();
+  console.log('New attestation UID:', newAttestationUID);
+};
 
-    console.log('New attestation UID:', newAttestationUID);
+export default function CreatorProfile() {
+  const [open, setOpen] = useState(false);
+  const [attestOpen, setAttestOpen] = useState(false)
+
+  const setOpenHandler = state => {
+    setOpen(state);
+  };
+
+  const setAttestOpenHandler = state => {
+    setAttestOpen(state)
+  }
+
+  const getProvider = async signer => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send('eth_requestAccounts', []);
+    if (signer) {
+      const signer = provider.getSigner();
+      return signer;
+    }
+    return provider;
   };
 
   const AttestOnProject = async () => {
@@ -176,7 +192,7 @@ export default function CreatorProfile() {
               <div className="py-10 text-center">
                 <span>is this a correct profile ?{'  '}</span>
                 <button
-                  onClick={AttesstonCreator}
+                  onClick={() => setAttestOpenHandler(true)}
                   className="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150">
                   Attest
                 </button>
@@ -186,6 +202,7 @@ export default function CreatorProfile() {
         </div>
       </section>
       <BenefitModal open={open} setOpen={setOpenHandler} />
+      <AttestModal open={attestOpen} setOpen={setAttestOpenHandler} />
     </main>
   );
 }

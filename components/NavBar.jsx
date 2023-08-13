@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import style from './Style.module.css';
 import Link from 'next/link';
@@ -15,6 +15,8 @@ const NavBar = () => {
   const [scrollY, setScrollY] = useState();
   const toggle = () => setIsOpen(!isOpen);
 
+  const [userData, setUserData] = useState([])
+
   const { address } = useAccount();
   const { loginWeb3Auth, ownerAddress } = useAccountAbstraction()
 
@@ -30,18 +32,48 @@ const NavBar = () => {
     const { pageYOffset, scrollY } = window;
     console.log("yOffset", pageYOffset, "scrollY", scrollY);
     setScrollY(window.pageYOffset);
-}, []);
+  }, []);
 
-useEffect(() => {
-  //add eventlistener to window
-  window.addEventListener("scroll", onScroll, { passive: true });
-  // remove event on unmount to prevent a memory leak with the cleanup
-  return () => {
-     window.removeEventListener("scroll", onScroll, { passive: true });
+  useEffect(() => {
+    //add eventlistener to window
+    window.addEventListener("scroll", onScroll, { passive: true });
+    // remove event on unmount to prevent a memory leak with the cleanup
+    return () => {
+      window.removeEventListener("scroll", onScroll, { passive: true });
+    }
+  }, []);
+
+  const fetchUserData = async () => {
+    const response = await fetch(
+      "https://api.studio.thegraph.com/query/50677/ethoslink/v0.0.41",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query: `
+          {
+            creators {
+                CreatorAddress
+                URI
+                id
+                tokenId
+              }
+          }
+      `,
+        }),
+      }
+    );
+    const result = await response.json();
+    console.log(result)
+    setUserData(result.data["creators"].filter(item => item.CreatorAddress == ethAccount?.toLowerCase()))
+
   }
-}, []);
 
-console.log(scrollY)
+  useEffect(() => {
+    fetchUserData();
+  }, [ethAccount, ownerAddress])
+
+  console.log(userData)
 
   // useEffect(() => {
 
@@ -74,14 +106,16 @@ console.log(scrollY)
         </li>
         <li>
           <ul className='flex gap-3'>
-            {ethAccount?.length > 0 && 
-             <li>
-              <Link href="/create" className='text-gray-400 hover:text-white transition-colors ease-in-out'>Create</Link>
-            </li>
+            {ethAccount?.length > 0 &&
+              <li>
+                <Link href="/create" className='text-gray-400 hover:text-white transition-colors ease-in-out'>Create</Link>
+              </li>
             }
-            <li>
-              <Link href="/be-a-creator/page" className='text-gray-400 hover:text-white transition-colors ease-in-out'>Be a Creator</Link>
-            </li>
+            {!(userData.length > 0) &&
+              <li>
+                <Link href="/be-a-creator/page" className='text-gray-400 hover:text-white transition-colors ease-in-out'>Be a Creator</Link>
+              </li>
+            }
             <li>
               <Link href="/marketplace" className='text-gray-400 hover:text-white transition-colors ease-in-out'>Marketplace</Link>
             </li>
@@ -109,7 +143,7 @@ console.log(scrollY)
               </span>
             ) : (
               <span>
-                <button className={`relative rounded-lg text-white text-sm flex items-center gap-1.5 py-2 px-4.5 hover:shadow-none px-4 ${style.buttonBorderGradient} ${style.shadowButton}`} onClick={() => {loginWeb3Auth()}}>Connect Wallet</button>
+                <button className={`relative rounded-lg text-white text-sm flex items-center gap-1.5 py-2 px-4.5 hover:shadow-none px-4 ${style.buttonBorderGradient} ${style.shadowButton}`} onClick={() => { loginWeb3Auth() }}>Connect Wallet</button>
               </span>
             )}
 
