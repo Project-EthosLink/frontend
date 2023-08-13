@@ -1,10 +1,34 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import BenefitModal from './BenefitModal';
 import { EAS, SchemaEncoder } from '@ethereum-attestation-service/eas-sdk';
 import { ethers } from 'ethers';
 import AttestModal from './AttestModal';
+import axios from 'axios';
 
 export const AttestonCreator = async () => {
+  useEffect(() => {
+    axios({
+      url: 'https://base-goerli.easscan.org/graphql',
+      method: 'post',
+      data: {
+        query: `
+      query AggregateAttestation {
+  aggregateAttestation(where: {
+    schemaId: {
+      equals: "0x45fa4b5a5c173af72329ac4dbaa243812872add36d3a806992c7cc7511c3d151"
+    }
+  }) {
+    _count {
+      _all
+    }
+  }
+}
+      `
+      }
+    }).then(result => {
+      console.log(result.data);
+    });
+  }, []);
   const getProvider = async signer => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     await provider.send('eth_requestAccounts', []);
@@ -14,7 +38,7 @@ export const AttestonCreator = async () => {
     }
     return provider;
   };
-  
+
   const EASContractAddress = '0xacfe09fd03f7812f022fbf636700adea18fd2a7a';
   const eas = new EAS(EASContractAddress);
   const signer = await getProvider(true);
@@ -40,15 +64,15 @@ export const AttestonCreator = async () => {
 
 export default function CreatorProfile() {
   const [open, setOpen] = useState(false);
-  const [attestOpen, setAttestOpen] = useState(false)
+  const [attestOpen, setAttestOpen] = useState(false);
 
   const setOpenHandler = state => {
     setOpen(state);
   };
 
   const setAttestOpenHandler = state => {
-    setAttestOpen(state)
-  }
+    setAttestOpen(state);
+  };
 
   const getProvider = async signer => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
