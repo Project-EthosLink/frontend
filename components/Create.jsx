@@ -21,7 +21,10 @@ export default function Create() {
       const amount = e.target.form[1].value;
       const resaleRoyalty = e.target.form[2].value;
       const token = await getContract();
-
+      const obj = {
+        name: e.target.form[0].value
+      };
+      const URI = await saveMetaData(obj);
       const tx = await token.mintSocialToken(amount, URI, resaleRoyalty, isTransferrable);
       await tx.wait();
     } catch (err) {

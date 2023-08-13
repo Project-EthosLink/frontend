@@ -1,4 +1,4 @@
-export const Token_Address = '0x5C0f8b8151823107F498A8bC036292249DA413f3';
+export const Token_Address = '0xE6E73E2A6AB5023D38607dA57B09C4beb3647259';
 export const Token_ABI = [
   { inputs: [], stateMutability: 'nonpayable', type: 'constructor' },
   {
