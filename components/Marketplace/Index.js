@@ -99,7 +99,15 @@ export default function Marketplace(props) {
     console.log('New attestation UID:', newAttestationUID);
   };
 
-  console.log(props)
+  console.log(props.data.socialTokenHoldings.filter(item => item.AmountListedByHolder > 0))
+
+  function truncateString(str, maxLength) {
+    if (str.length <= maxLength) {
+      return str;
+    } else {
+      return str.substring(0, maxLength) + "...";
+    }
+  }
 
   return (
     <main className=" text-white w-4/5 m-auto mt-[100px] text-xl">
@@ -111,21 +119,21 @@ export default function Marketplace(props) {
             <TableHead className="w-[100px]">Token ID</TableHead>
             <TableHead>Creator</TableHead>
             <TableHead>Price by Holder</TableHead>
-            <TableHead>Launching price revenue royalty</TableHead>
-            <TableHead className="text-right">Amount</TableHead>
-            <TableHead className="text-right">Amount</TableHead>
-            <TableHead className="text-right">Amount</TableHead>
+            <TableHead className="text-center">Launching price revenue royalty</TableHead>
+            <TableHead className="">Amount</TableHead>
+            <TableHead className="text-center">Buy</TableHead>
+            <TableHead className="text-center">Attest</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {invoices.map(invoice => (
-            <TableRow key={invoice.invoice}>
-              <TableCell className="font-medium">{invoice.invoice}</TableCell>
-              <TableCell>{invoice.paymentStatus}</TableCell>
-              <TableCell>{invoice.paymentMethod}</TableCell>
-              <TableCell className="text-right">{invoice.totalAmount}</TableCell>
-              <TableCell className="text-right">{invoice.totalAmount}</TableCell>
-              <TableCell className="text-right">
+          {props.data.socialTokenHoldings.filter(item => item.AmountListedByHolder > 0).map((data,index) => (
+            <TableRow key={index}>
+              <TableCell className="font-medium">{data.SocialTokenId}</TableCell>
+              <TableCell>{truncateString(data.Creator,10)}</TableCell>
+              <TableCell>{data.PriceSetByHolder}</TableCell>
+              <TableCell className="text-center">{data.ReSaleRoyalty}%</TableCell>
+              <TableCell className="text-center">{data.AmountListedByHolder}</TableCell>
+              <TableCell className="flex justify-center">
                 <button
                   onClick={BuyToken}
                   className={`relative rounded-lg text-white text-sm flex items-center gap-1.5 py-2 px-4.5 hover:shadow-none px-4 ${style.buttonBorderGradient} ${style.shadowButton}`}>
@@ -133,10 +141,10 @@ export default function Marketplace(props) {
                   BUY{' '}
                 </button>
               </TableCell>
-              <TableCell className="text-right">
+              <TableCell className="">
                 <button
                   onClick={AttestToken}
-                  className={`relative rounded-lg text-white text-sm flex items-center gap-1.5 py-2 px-4.5 hover:shadow-none px-4 ${style.buttonBorderGradient} ${style.shadowButton}`}>
+                  className={`relative m-auto rounded-lg text-white text-sm flex items-center gap-1.5 py-2 px-4.5 hover:shadow-none px-4 ${style.buttonBorderGradient} ${style.shadowButton}`}>
                   {' '}
                   Attest{' '}
                 </button>

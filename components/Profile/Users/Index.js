@@ -68,7 +68,7 @@ export default function Profile(props) {
     filterData()
   }, [props.data.socialTokenHoldings, ethAccount])
 
-  console.log(props.data.socialTokenHoldings.filter(item => item.Holder.length > 0))
+  console.log(ethAccount)
 
   return (
     <main className="text-white mt-[120px] flex flex-col">
@@ -81,7 +81,7 @@ export default function Profile(props) {
       <section className=" mx-10 mt-8">
         <h1 className=" text-4xl font-semibold">Social Token Owned</h1>
         <div className='flex gap-5'>
-          {props.data.socialTokenHoldings.filter(data => data.Holder == ethAccount).map((element, index) => {
+          {props.data.socialTokenHoldings.filter(data => data.Holder == ethAccount.toLowerCase()).map((element, index) => {
             return (
               <div className="flex flex-wrap gap-4 mt-8 mb-8" key={index}>
                 <Card className="w-[300px]">

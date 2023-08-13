@@ -26,6 +26,8 @@ export async function getServerSideProps(context) {
                     AmountOwnedByHolder
                     AmountListedByHolder
                     AmountAvailbleforSale
+                    PriceSetByHolder
+                    ReSaleRoyalty
                   }
               }
           `,
