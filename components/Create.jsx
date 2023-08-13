@@ -1,12 +1,14 @@
 import style from './Style.module.css';
 import { useState } from 'react';
 import Checkbox from '@mui/material/Checkbox';
+import { getContract } from '../utils/constants/getContracts';
+import { saveMetaData } from '../utils/saveMetaDataToIPFS';
 
 export default function Create() {
   const [allfile, setAllfile] = useState({});
   console.log(allfile);
-  const [isTransferrable, setIsTransferrable] = useState(true)
-  console.log(isTransferrable)
+  const [isTransferrable, setIsTransferrable] = useState(true);
+  console.log(isTransferrable);
 
   function uploadFile() {
     document.getElementById('ipfs_file').click();
@@ -16,11 +18,11 @@ export default function Create() {
     e.preventDefault();
     try {
       console.log(e.target.form[0].value);
-      const URI = e.target.form[0].value;
       const amount = e.target.form[1].value;
       const resaleRoyalty = e.target.form[2].value;
       const token = await getContract();
-      const tx = await token.mintSocialToken(amount, URI, resaleRoyalty, true);
+
+      const tx = await token.mintSocialToken(amount, URI, resaleRoyalty, isTransferrable);
       await tx.wait();
     } catch (err) {
       console.log(err);
@@ -157,9 +159,9 @@ export default function Create() {
                     {allfile.length > 0 && (
                       <div className="text-sm text-gray-400 mb-4 font-semibold">{allfile[0].name} files choosen</div>
                     )}
-                    <div className='relative mb-2'>
-                      <Checkbox onChange={(e) => setIsTransferrable(e.target.checked)} defaultChecked />
-                      <span className='text-gray-400'>is the token transferrable*</span>
+                    <div className="relative mb-2">
+                      <Checkbox onChange={e => setIsTransferrable(e.target.checked)} defaultChecked />
+                      <span className="text-gray-400">is the token transferrable*</span>
                     </div>
                     <button
                       onClick={e => mint(e)}
