@@ -223,9 +223,9 @@ export default function CreatorProfile(props) {
                           <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
                             {data.about}
                           </p>
-                          <a href={`${data.socialLinks}`} className="font-normal text-pink-500">
+                          {/* <a href={`${data.socialLinks}`} className="font-normal text-pink-500">
                             {data.socialLinks}
-                          </a>
+                          </a> */}
                         </div>
                       </div>
                     </div>
@@ -241,7 +241,7 @@ export default function CreatorProfile(props) {
                 </div>
               </div>
             </section>
-            <BenefitModal open={open} setOpen={setOpenHandler} tokenId={data.tokenId} />
+            <BenefitModal open={open} setOpen={setOpenHandler} tokenId={data.tokenId} CreatorAddress={data.CreatorAddress}/>
             <AttestModal open={attestOpen} setOpen={setAttestOpenHandler} />
           </>
         )

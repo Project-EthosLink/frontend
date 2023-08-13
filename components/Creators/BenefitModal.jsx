@@ -13,7 +13,7 @@ export default function BenefitModal(props) {
                         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
 
                             <div className=" pt-5">
-                                <Link href={`/token/${props.tokenId}`}>
+                                <Link href={`/token/${props.tokenId}?CreatorAddress=${props.CreatorAddress}`}>
                                     <article class="mx-auto max-w-sm shadow-xl bg-cover bg-center min-h-100 transform duration-500 hover:-translate-y-2 cursor-pointer group rounded-md overflow-hidden " style={{ backgroundImage: "url(https://images.pexels.com/photos/3325720/pexels-photo-3325720.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=1&amp;w=500)" }}>
                                         <div class="bg-black bg-opacity-20 min-h-100 px-10 flex flex-wrap flex-col pt-36 hover:bg-opacity-75 transform duration-300">
                                             <h1 class="text-white text-3xl mb-5 transform translate-y-20 group-hover:translate-y-0 duration-300">
