@@ -7,10 +7,17 @@ import Link from 'next/link';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { getContract } from '../../utils/constants/getContracts';
 import { ethers } from 'ethers';
+import { saveMetaData } from '../../utils/saveMetaDataToIPFS';
 
 export default function Form() {
   const [disableTab2, setDisableTab2] = useState(true);
   const { user, isLoading, error } = useUser();
+  const [name, setName] = useState('');
+  const [location, setLocation] = useState('');
+  const [creatorType, setCreatorType] = useState('');
+  const [platforms, setPlatforms] = useState();
+  const [socialLinks, setSocialLinks] = useState();
+  const [about, setAbout] = useState('');
 
   useEffect(() => {
     if (user) {
@@ -18,9 +25,19 @@ export default function Form() {
     }
   }, [user]);
 
-  const mintUser = async () => {
+  const mintUser = async e => {
+    e.preventDefault();
     const contract = await getContract();
-    const tx = await contract.registerCreator('IPFS ID');
+    const obj = {
+      name: name,
+      location: location,
+      creatorType: creatorType,
+      platforms: platforms,
+      socialLinks: socialLinks,
+      about: about
+    };
+    const URI = await saveMetaData(obj);
+    const tx = await contract.registerCreator(URI);
     await tx.wait();
     console.log('Minted');
   };
@@ -39,7 +56,7 @@ export default function Form() {
         </TabList>
         <TabPanel value={0}>
           <div className="flex flex-col items-center justify-center h-[70vh]">
-            <div className='text-center mb-[30px]'>
+            <div className="text-center mb-[30px]">
               <strong>Are you a person? Verify</strong>
             </div>
             {user ? (
@@ -76,11 +93,13 @@ export default function Form() {
                 Your Name
               </label>
               <input
-                type="email"
                 id="email"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Arya"
                 required
+                onChange={e => {
+                  setName(e.target.value);
+                }}
               />
             </div>
             <div className="mb-6 w-full">
@@ -88,11 +107,13 @@ export default function Form() {
                 Your Location
               </label>
               <input
-                type="email"
                 id="email"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Paris"
                 required
+                onChange={e => {
+                  setLocation(e.target.value);
+                }}
               />
             </div>
             <div className="mb-6 w-full">
@@ -100,11 +121,13 @@ export default function Form() {
                 What you make as a Creator
               </label>
               <input
-                type="email"
                 id="email"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Videos, Blogs"
                 required
+                onChange={e => {
+                  setCreatorType(e.target.value);
+                }}
               />
             </div>
             <div className="mb-6 w-full">
@@ -112,11 +135,13 @@ export default function Form() {
                 Platforms where you are present
               </label>
               <input
-                type="email"
                 id="email"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Youtube, Twitch, Tik-Tok"
                 required
+                onChange={e => {
+                  setPlatforms(e.target.value);
+                }}
               />
             </div>
             <div className="mb-6 w-full">
@@ -124,11 +149,13 @@ export default function Form() {
                 Website through which you will provide perks to your social token holder (include https:// in URL)
               </label>
               <input
-                type="email"
                 id="email"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="https://www.google.com"
                 required
+                onChange={e => {
+                  setSocialLinks(e.target.value);
+                }}
               />
             </div>
             <div class="mb-6 w-full">
@@ -136,11 +163,13 @@ export default function Form() {
                 About Yourself
               </label>
               <textarea
-                type="password"
                 id="password"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="what you want your fans to know about you"
                 required
+                onChange={e => {
+                  setAbout(e.target.value);
+                }}
               />
             </div>
             <button
