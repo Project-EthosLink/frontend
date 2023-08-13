@@ -25,11 +25,11 @@ export default function Profile() {
             </section>
             <section className=" mx-10 mt-8">
                 <h1 className=" text-4xl font-semibold">Social Token Owned</h1>
-                <div>
-                    <Card className="w-[350px]">
+                <div className="flex flex-wrap gap-4 mt-8">
+                    <Card className="w-[300px]">
                         <CardHeader>
-                            <CardTitle>Create project</CardTitle>
-                            <CardDescription>Deploy your new project in one-click.</CardDescription>
+                            <CardTitle>Social Token</CardTitle>
+                            <CardDescription>Manage your social token status</CardDescription>
                         </CardHeader>
                         <CardContent>
                             <form>
@@ -43,7 +43,7 @@ export default function Profile() {
                                 </div>
                             </form>
                         </CardContent>
-                        <CardFooter className="flex justify-between">
+                        <CardFooter className="flex justify-between flex-col gap-4">
                             <Button variant="outline">Launch</Button>
                             <Button>List on marketplace</Button>
                             <Button>UnList from marketplace</Button>

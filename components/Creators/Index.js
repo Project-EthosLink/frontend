@@ -36,6 +36,9 @@ export default function CreatorProfile() {
                                         <button className="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
                                             Follow
                                         </button>
+                                        <button onClick={() => setOpenHandler(!open)} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                                            Benefits
+                                        </button>
                                     </div>
                                 </div>
                                 <div className="w-full lg:w-4/12 px-4 lg:order-1">
@@ -89,9 +92,6 @@ export default function CreatorProfile() {
                     </div>
                 </div>
             </section>
-            <button onClick={() => setOpenHandler(!open)} class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-                Toggle modal
-            </button>
             <BenefitModal open={open} setOpen={setOpenHandler} />
         </main>
     )
